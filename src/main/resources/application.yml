@@ -1,0 +1,44 @@
+## 端口号  上下文路径
+server:
+  port: 8080
+  servlet:
+    context-path: /zto
+
+## 数据源配置
+spring:
+  datasource:
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/zto?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  ## freemarker
+    ##freemarker:
+    ##suffix: .ftl
+    ##content-type: text/html
+    ##charset: UTF-8
+    ## template-loader-path: classpath:/views/
+    ##request-context-attribute: ctx
+
+## mybatis 配置
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  ## type-aliases-package: com.yidu.crm.vo;com.yidu.crm.query
+  configuration:
+    map-underscore-to-camel-case: true
+
+## pageHelper 分页
+pagehelper:
+  helper-dialect: mysql
+
+## 设置 dao 日志打印级别
+logging:
+  level:
+    com:
+      yidu:
+        zto:
+          dao: debug

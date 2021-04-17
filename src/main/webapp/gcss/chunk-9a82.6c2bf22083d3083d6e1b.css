@@ -1,0 +1,177 @@
+.table-cont {
+ padding:10px;
+ background:#fff;
+ margin-top:10px
+}
+.table-cont .a-list {
+ text-align:center
+}
+.table-cont .a-list .no-data {
+ padding-top:250px;
+ padding-bottom:50px;
+ background:url(../gimg/no_recond.jpg) no-repeat center 10px;
+ background-size:250px
+}
+.table-cont .a-list th {
+ background:#f1f4f8;
+ border-right:1px solid #fff;
+ text-align:center;
+ border-bottom:0
+}
+.table-cont .a-list th:last-child {
+ border-right:0
+}
+.table-cont .a-list td {
+ border-right:1px solid #ebeef5
+}
+.table-cont .a-list td:first-child {
+ text-align:left
+}
+.table-cont .a-list td:last-child {
+ border-right:0
+}
+.table-cont .a-list .el-table__body-wrapper {
+ margin-top:5px
+}
+.table-cont .a-list .handle-btn {
+ color:#66b1ff;
+ padding:0 10px;
+ height:30px;
+ line-height:30px;
+ display:inline-block;
+ cursor:pointer;
+ background:transparent;
+ border-radius:15px
+}
+.table-cont .a-list .handle-btn.active {
+ background:#ff6363;
+ border-radius:15px;
+ color:#fff;
+ text-align:center
+}
+.table-cont .a-list .es-btn {
+ width:76px
+}
+.tag .receive-icon,
+.tag .send-icon {
+ display:block;
+ width:35px;
+ height:26px;
+ background:url(/static/images/address/send-iocn.png) no-repeat;
+ background-size:35px 26px;
+ margin-right:10px;
+ float:left
+}
+.tag .receive-icon {
+ background:url(/static/images/address/receive-iocn.png) no-repeat;
+ background-size:35px 26px
+}
+.edit-address-dialog .auto-ansysic {
+ position:relative;
+ margin-bottom:10px;
+ width:100%
+}
+.edit-address-dialog .auto-ansysic textarea {
+ background:#f1f4f8;
+ border:none;
+ outline:0;
+ padding:10px 10px 60px;
+ height:150px;
+ width:100%;
+ resize:none
+}
+.edit-address-dialog .auto-ansysic .btn-an {
+ text-align:center;
+ color:#fff;
+ border-radius:5px;
+ display:block;
+ width:100px;
+ height:40px;
+ line-height:40px;
+ background:#70e599;
+ position:absolute;
+ bottom:10px;
+ right:5px;
+ cursor:pointer
+}
+.edit-address-dialog .close-btn {
+ display:block;
+ height:60px;
+ width:60px;
+ position:absolute;
+ background:url(../img/close.png) no-repeat 100% 0;
+ background-size:50px;
+ right:0;
+ top:0;
+ cursor:pointer
+}
+.edit-address-dialog .el-dialog {
+ width:475px
+}
+.edit-address-dialog .el-dialog__header {
+ padding:0 40px;
+ position:relative
+}
+.edit-address-dialog .el-dialog__body {
+ padding:30px 40px 0
+}
+.edit-address-dialog .el-dialog__footer {
+ padding:0 40px 30px
+}
+.edit-address-dialog .dialog-title {
+ border-bottom:1px solid #dcdfe6;
+ height:60px;
+ line-height:60px
+}
+.edit-address-dialog .e-edit-btn {
+ font-size:16px;
+ width:100%;
+ height:50px;
+ line-height:50px;
+ padding:0;
+ background:#1db6f6;
+ border-color:#1db6f6
+}
+.address-container {
+ margin-bottom:20px
+}
+.address-container .search-cont {
+ margin-top:10px
+}
+.address-container .search-cont .address-input {
+ float:left;
+ width:250px;
+ margin-right:10px
+}
+.address-container .search-cont .address-s-btn {
+ float:left
+}
+.address-container .search-cont .address-a-btn {
+ float:right;
+ background:#ffab6d url(../gimg/add-address-icon.png) no-repeat 10px;
+ background-size:15px;
+ border-color:#ffab6d;
+ text-align:center;
+ padding-left:35px
+}
+.address-container .search-cont:after {
+ content:"";
+ display:block;
+ clear:both;
+ text-align:center
+}
+.address-container .page-wrapper {
+ background:#fff;
+ padding:10px
+}
+.address-container .page-wrapper .el-pagination {
+ text-align:center
+}
+.address-container .page-wrapper .total {
+ color:#606266;
+ margin-right:10px
+}
+.address-container .page-wrapper .btn-next,
+.address-container .page-wrapper .btn-prev {
+ padding:0 10px
+}

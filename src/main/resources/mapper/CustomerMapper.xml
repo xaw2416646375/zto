@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.CustomerMapper">
+
+    <resultMap type="com.yidu.zto.entity.Customer" id="CustomerMap">
+        <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="trueName" column="true_name" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="isValid" column="is_valid" jdbcType="INTEGER"/>
+        <result property="photo" column="photo" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="customer_field">
+        customer_id, phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date
+    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CustomerMap">
+        select
+          customer_id, phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date
+        from zto.customer
+        where customer_id = #{customerId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CustomerMap">
+        select
+          customer_id, phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date
+        from zto.customer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CustomerMap">
+        select
+        customer_id, phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date
+        from zto.customer
+        <where>
+            <if test="customerId != null">
+                and customer_id = #{customerId}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="trueName != null and trueName != ''">
+                and true_name = #{trueName}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="photo != null and photo != ''">
+                and photo = #{photo}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="createDate != null">
+                and create_date = #{createDate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="customerId" useGeneratedKeys="true">
+        insert into zto.customer(phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date)
+        values (#{phone}, #{password}, #{nickName}, #{trueName}, #{sex}, #{address}, #{isValid}, #{photo}, #{birthday}, #{createDate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.customer
+        <set>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName},
+            </if>
+            <if test="trueName != null and trueName != ''">
+                true_name = #{trueName},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="isValid != null">
+                is_valid = #{isValid},
+            </if>
+            <if test="photo != null and photo != ''">
+                photo = #{photo},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where customer_id = #{customerId}
+    </update>
+
+    <select id="queryCustomerByPhone" resultType="String" resultMap="CustomerMap">
+        select <include refid="customer_field"></include>
+        from customer where phone = #{phone}
+    </select>
+
+</mapper>
+

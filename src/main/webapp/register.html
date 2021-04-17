@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>欢迎注册</title>
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<link rel="shortcut icon" href="img/zhongtong_logo.ico" type="image/x-icon">
+		<style>
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			#register_back{
+				background: 0 0;
+				background-color: #eef1f4;
+				padding: 10px;
+				min-width: 1200px;
+				font-size: 14px;
+				margin-top: -80px;
+			}
+			#register_body{
+				width: 661px;
+				height: 660px;
+				border-radius: 10px;
+				background: #fff;
+				margin: 100px auto;
+				border: 1px solid #fff;
+				position: relative;
+				box-shadow: 0 15px 40px rgba(51,162,247,.2);
+			}
+			.register_title{
+				text-align: center;
+				line-height: 58px;
+				font-size: 20px;
+				color: #33a2f7;
+				font-family: 'PingFang SC';
+				width: 550px;
+				height: 60px;
+				margin: 35px auto;
+				background: url(img/register_tit.png) center center no-repeat;
+			}
+			.go_login{
+				text-decoration: none;
+				width: 92px;
+				height: 49px;
+				display: block;
+				position: absolute;
+				top: 42px;
+				right: -13px;
+				line-height: 54px;
+				text-indent: 33px;
+				color: #fff;
+				letter-spacing: 1px;
+				background: url(img/go-login.png) center center no-repeat;
+			}
+			#register_message{
+				width: 400px;
+				margin: 45px auto;
+			}
+			.register_text{
+				width: 100%;
+				height: 50px;
+				margin-bottom: 27px;
+				position: relative;
+			}
+			.register_text .phone_error{
+				/*color: red;
+				font-size: 12px;*/
+				border: 1px solid red;
+				width: 100px;
+				height: 60px;
+			}
+			.register_text .name{
+				display: block;
+				width: 37px;
+				height: 22px;
+				border-right: 1px solid #dadada;
+				position: absolute;
+				top: 13px;
+				z-index: 2;
+				text-align: center;
+			}
+			.register_text .name img{
+				height: auto;
+				max-width: 100%;
+			}
+			.input_text{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 50px;
+				border: 1px solid #e6e6e6;
+				border-radius: 5px;
+				text-indent: 50px;
+				outline: 0;
+				transition: all .5s;
+				font-family: SimSun;
+			}
+			.input_text:focus{
+				border-color: orange;
+			}
+			#code_text{
+				width: 243px;
+			}
+			#code_text01{
+				width: 243px;
+			}
+			.get_picture_code{
+				width: 130px;
+				height: 50px;
+				line-height: 50px;
+				float: right;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			.get_code{
+				color: #fff;
+				background: #ff9c00;
+				text-align: center;
+				width: 130px;
+				height: 50px;
+				line-height: 50px;
+				float: right;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			.register_button{
+				width: 200px;
+				height: 48px;
+				margin: 30px auto;
+				line-height: 48px;
+				text-align: center;
+				background: #33a2f7;
+				font-size: 16px;
+				color: #fff;
+				border-radius: 24px;
+				cursor: pointer;
+				box-shadow: 0 5px 10px rgba(51,162,247,.4);
+			}
+			#yzm_01,#yzm_02,#yzm_03{
+				color: orangered;
+				font-size: 11px;
+				margin-left: -305px;
+				margin-top: -15px;
+				margin-bottom: 5px;
+				display: none;
+			}
+			#yzm_04 {
+				color: orangered;
+				font-size: 11px;
+				margin-left: -290px;
+				margin-top: -15px;
+				margin-bottom: 5px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<center>
+			<header>
+				<iframe src="头部.html" frameborder="no" width="100%" border="0"></iframe>
+			</header>
+			<section>
+			<div id="register_back">
+				<div id="register_body">
+					<div class="register_title">
+						<p>欢迎注册</p>
+					</div>
+					<a href="login.html" class="go_login">登录</a>
+					<div id="register_message">
+						<!--手机号-->
+						<div id="divdis" style="display: none;color: orangered;margin-left: -390px">
+							<table style="margin-left:85px;"><tr><td><img src="img/tips.png" id="imgs"></td><td><div id="tis" style="font-size: 11px"></div></td></tr></table>
+						</div>
+						<div class="register_text">
+							<span class="name">
+								<img src="img/icon_user.png" />
+							</span>
+							<input id="phone_text" class="input_text" type="text" placeholder="请输入手机号" />
+						</div>
+						<!--文字验证码-->
+						<!--<p id="yzm_01" class="tips show"><img style="margin-bottom: -2px" src="img/tips.png">验证码不能为空</p>
+						<div class="register_text">
+							<span class="name">
+								<img src="img/icon_code.png" />
+							</span>
+							<input id="code_text" class="input_text" type="text" placeholder="请输入验证码" value="" />
+							<img class="get_picture_code" src="img/index.png" />
+						</div>-->
+						<!--获取验证码-->
+						<p id="yzm_02" class="tips show"><img style="margin-bottom: -2px" src="img/tips.png"><span>验证码不能为空</span></p>
+						<div class="register_text">
+							<span class="name">
+								<img src="img/icon_code.png" />
+							</span>
+							<input id="code_text01" class="input_text" type="text" placeholder="请输入验证码" value=""/>
+							<span class="get_code">获取验证码</span>
+						</div>
+						<!--第一次输入密码-->
+						<p id="yzm_03" class="tips show"><img style="margin-bottom: -2px" src="img/tips.png">密码不能为空</p>
+						<div class="register_text">
+							<span class="name">
+								<img src="img/icon_pwd.png" />
+							</span>
+							<input id="password_text" class="input_text" type="text" placeholder="请输入密码" value=""/>
+						</div>
+						<!--第二次输入密码-->
+						<p id="yzm_04" class="tips show"><img style="margin-bottom: -2px" src="img/tips.png">二次密码不能为空</p>
+						<div class="register_text">
+							<span class="name">
+								<img src="img/icon_pwd.png" />
+							</span>
+							<input id="password_text01" class="input_text" type="text" placeholder="请再次输入密码" value=""/>
+						</div>
+						<!--注册按钮-->
+						<div id="register_01"  class="register_button">
+							注册
+						</div>
+					</div>
+				</div>
+			</div>
+			</section>
+			<footer>
+				<iframe src="底部.html" frameborder="no" height="250px" width="100%" border="0"></iframe>
+			</footer>
+		</center>
+	</body>
+	<script type="text/javascript">
+		//手机号验证结果
+		let phoneResult = false;
+		//验证码验证结果
+		let verifyResult = false;
+		//手机验证码验证结果
+		let phoneVerifyResult = false;
+		//密码验证结果
+		let passwordResult = false;
+		//确认密码验证结果
+		let confirmPasswordResult = false;
+		$("#register_01").on("click",function () {
+
+			/*if($("#code_text").val()==""){
+				$("#yzm_01").show();
+			}else {
+				$("#yzm_01").hide();
+			}*/
+
+			if($("#code_text01").val()==""){
+				$("#yzm_02>span").text("验证码不能为空");
+				$("#yzm_02").show();
+			}else {
+				if(($("#code_text01").val()=="6666")){
+					$("#yzm_02").hide();
+				}else{
+					$("#yzm_02>span").text("验证码不正确");
+					$("#yzm_02").show();
+				}
+
+			}
+
+			if($("#password_text").val()==""){
+				$("#yzm_03").show();
+			}else {
+				$("#yzm_03").hide();
+			}
+
+			if($("#password_text01").val()==""){
+				$("#yzm_04").show();
+			}else if ($("#password_text01").val()!="" && $("#password_text01").val()!=$("#password_text").val()){
+				$("#yzm_04").text("密码与第一次不同！");
+				$("#yzm_04").show();
+			}else{
+				$("#yzm_04").hide();
+			}
+			//手机号正则表达式
+			var strTemp = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
+			if ($("#phone_text").val() == ""){
+				phoneResult = false;
+				$("#tis").text("手机号不能为空！");
+				$("#divdis").show();
+			}else {
+				if (!strTemp.test($("#phone_text").val()) && $("#phone_text").val()!=""){
+					$("#divdis").show();
+					$("#tis").text("手机格式不正确！");
+				}else{
+					phoneResult = true;
+					$("#divdis").hide();
+				}
+
+			}
+			if($("#divdis").is(':hidden')&&$("#yzm_02").is(':hidden')
+			&$("#yzm_03").is(':hidden')&$("#yzm_04").is(':hidden') ){
+				//alert("可以注册");
+				$.ajax({
+					type:"post",
+					url:"customer/register",
+					data:"phone="+$("#phone_text").val()+"&password="+$("#password_text").val(),
+					success:function (result) {
+						if(result.msg=="注册成功！"){
+							window.location.href="login.html";
+						}else{
+							$("#divdis").show();
+							$("#tis").text(result.msg);
+						}
+					}
+				});
+			}
+
+		});
+	</script>
+</html>

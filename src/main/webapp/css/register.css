@@ -1,0 +1,127 @@
+*{
+				margin: 0px;
+				padding: 0px;
+			}
+			#register_back{
+				background: 0 0;
+				background-color: #eef1f4;
+				padding: 10px;
+				min-width: 1200px;
+				font-size: 14px;
+			}
+			#register_body{
+				width: 661px;
+				height: 660px;
+				border-radius: 10px;
+				background: #fff;
+				margin: 100px auto;
+				border: 1px solid #fff;
+				position: relative;
+				box-shadow: 0 15px 40px rgba(51,162,247,.2);
+			}
+			.register_title{
+				text-align: center;
+				line-height: 58px;
+				font-size: 20px;
+				color: #33a2f7;
+				font-family: 'PingFang SC';
+				width: 550px;
+				height: 60px;
+				margin: 35px auto;
+				background: url(../img/register_tit.png) center center no-repeat;
+			}
+			.go_login{
+				width: 92px;
+				height: 49px;
+				display: block;
+				position: absolute;
+				top: 42px;
+				right: -13px;
+				line-height: 54px;
+				text-indent: 33px;
+				color: #fff;
+				letter-spacing: 1px;
+				background: url(../img/go-login.png) center center no-repeat;
+			}
+			#register_message{
+				width: 400px;
+				margin: 45px auto;
+			}
+			.register_text{
+				width: 100%;
+				height: 50px;
+				margin-bottom: 27px;
+				position: relative;
+			}
+			.register_text .phone_error{
+				/*color: red;
+				font-size: 12px;*/
+				border: 1px solid red;
+				width: 100px;
+				height: 60px;
+			}
+			.register_text .name{
+				display: block;
+				width: 37px;
+				height: 22px;
+				border-right: 1px solid #dadada;
+				position: absolute;
+				top: 13px;
+				z-index: 2;
+				text-align: center;
+			}
+			.register_text .name img{
+				height: auto;
+				max-width: 100%;
+			}
+			.input_text{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 50px;
+				border: 1px solid #e6e6e6;
+				border-radius: 5px;
+				text-indent: 50px;
+				outline: 0;
+				transition: all .5s;
+				font-family: SimSun;
+			}
+			.input_text:focus{
+				border-color: orange;
+			}
+			#code_text{
+				width: 243px;
+			}
+			.get_picture_code{
+				width: 130px;
+				height: 50px;
+				line-height: 50px;
+				float: right;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			.get_code{
+				color: #fff;
+				background: #ff9c00;
+				text-align: center;
+				width: 130px;
+				height: 50px;
+				line-height: 50px;
+				float: right;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+			.register_button{
+				width: 200px;
+				height: 48px;
+				margin: 30px auto;
+				line-height: 48px;
+				text-align: center;
+				background: #33a2f7;
+				font-size: 16px;
+				color: #fff;
+				border-radius: 24px;
+				cursor: pointer;
+				box-shadow: 0 5px 10px rgba(51,162,247,.4);
+			}

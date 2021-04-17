@@ -1,0 +1,113 @@
+.navbar[data-v-2419bf86] {
+ line-height:50px;
+ background-color:transparent;
+ display:-webkit-box;
+ display:-ms-flexbox;
+ display:flex;
+ -webkit-box-align:center;
+ -ms-flex-align:center;
+ align-items:center;
+ border-bottom:1px solid #e0e3e7;
+ border-right:none;
+ font-size:22px;
+ color:#2c2c33!important;
+ margin-bottom:10px
+}
+.navbar img[data-v-2419bf86] {
+ width:40px;
+ height:40px;
+ margin-right:5px
+}
+.container[data-v-07831aea] {
+ padding:50px 45px;
+ margin-bottom:80px;
+ background-color:#fff
+}
+.container .btn[data-v-07831aea] {
+ height:30px;
+ line-height:30px;
+ padding:0 30px;
+ margin-top:5px
+}
+.container .item[data-v-07831aea] {
+ padding:30px 120px;
+ display:-webkit-box;
+ display:-ms-flexbox;
+ display:flex;
+ border-bottom:1px solid #ccc
+}
+.container .item[data-v-07831aea]:last-child {
+ border:none
+}
+.container .item .title[data-v-07831aea] {
+ font-style:normal;
+ width:140px;
+ height:40px;
+ line-height:40px;
+ padding-left:45px;
+ margin-right:25px;
+ border-right:1px solid #ccc;
+ background:url(../gimg/success.png) no-repeat 0;
+ background-size:auto 70%
+}
+.container .item .other[data-v-07831aea] {
+ background:url(../gimg/notice.png) no-repeat 0;
+ background-size:auto 70%
+}
+.container .item .right-side[data-v-07831aea] {
+ display:-webkit-box;
+ display:-ms-flexbox;
+ display:flex
+}
+.container .item .right-side p[data-v-07831aea] {
+ width:470px;
+ line-height:40px;
+ font-size:14px;
+ color:#7c8387
+}
+.container .item .right-side p i[data-v-07831aea] {
+ font-style:normal;
+ color:#1db6f6
+}
+.container .item .item-list p[data-v-07831aea] {
+ line-height:40px;
+ font-size:14px;
+ color:#7c8387
+}
+.container .item .item-list .s-item[data-v-07831aea] {
+ display:-webkit-box;
+ display:-ms-flexbox;
+ display:flex
+}
+.container .item .item-list .s-item .s-title[data-v-07831aea] {
+ width:470px;
+ height:40px;
+ padding-left:40px;
+ line-height:40px;
+ font-size:14px;
+ color:#7c8387
+}
+.container .item .item-list .s-item .wechat[data-v-07831aea] {
+ background:url(../gimg/wechats.png) no-repeat 0;
+ background-size:auto 50%
+}
+.container .item .item-list .s-item .qq[data-v-07831aea] {
+ background:url(../gimg/qqs.png) no-repeat 0;
+ background-size:auto 50%
+}
+.input-box .input-item[data-v-07831aea] {
+ width:375px;
+ margin:20px auto
+}
+.input-box .input-item em[data-v-07831aea] {
+ display:inline-block;
+ width:90px;
+ font-style:normal
+}
+.input-box .input-item .input[data-v-07831aea] {
+ width:280px
+}
+.input-box .btn-box[data-v-07831aea] {
+ margin-top:50px;
+ text-align:center
+}
