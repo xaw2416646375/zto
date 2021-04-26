@@ -3,6 +3,7 @@ package com.yidu.zto.controller;
 import com.yidu.zto.base.ResultInfo;
 import com.yidu.zto.entity.Customer;
 import com.yidu.zto.service.CustomerService;
+import com.yidu.zto.utils.CookieUtil;
 import com.yidu.zto.utils.ImageVerificationCodeUtils;
 import com.yidu.zto.utils.verifyCodeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
@@ -63,7 +65,7 @@ public class CustomerController {
 
     @RequestMapping("phone_login")
     @ResponseBody
-    public ResultInfo phoneLogin(HttpServletRequest request,String phone){
+    public ResultInfo phoneLogin(HttpServletRequest request,HttpServletResponse response,String phone){
         //调用service中根据手机号验证码登录的方法
         Customer customer = customerService.phoneLogin(phone);
         //将信息存入session
@@ -113,7 +115,7 @@ public class CustomerController {
      */
     @ResponseBody
     @RequestMapping("checkImgVerifyCode")
-    public String checkVerifyCode(HttpServletRequest request, HttpServletResponse response, String verificationCode){
+    public String checkVerifyCode(HttpServletRequest request,  String verificationCode){
         try {
             //设置编码
             request.setCharacterEncoding("utf-8");
@@ -130,7 +132,7 @@ public class CustomerController {
     }
     @ResponseBody
     @RequestMapping("getPhoneVerifyCode")
-    public int getPhoneVerifyCode(String mobile){
+    public int getPhoneVerifyCode(String mobile,HttpServletResponse response){
         verifyCodeUtils verifyCodeUtils = new verifyCodeUtils();
         int phoneVerifyCode = 0;
         try {
@@ -142,6 +144,7 @@ public class CustomerController {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        CookieUtil.setCookie("phone",mobile,"",response);
         return phoneVerifyCode;
     }
 

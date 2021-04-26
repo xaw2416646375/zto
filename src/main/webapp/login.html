@@ -183,6 +183,7 @@
 			<iframe src="底部.html" frameborder="no" height="250px" width="100%" border="0"></iframe>
 		</footer>
 		<script src="axui-v1.0.2-20210211/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+		<script src="static/js/jquery.cookie.js" type="text/javascript"></script>
 		<script type='text/javascript'>
 			function login_01() {
 				var usv = $("#us").val();
@@ -252,11 +253,17 @@
 							url:"customer/phone_login",
 							data:"phone="+$("#us01").val(),
 							success:function (data) {
-								if(data.code=="200"){
+								alert($.cookie('phone')==$("#us01").val());
+								if(data.code=="200"&&$.cookie('phone')==$("#us01").val()){
 									window.location.href="http://localhost:8080/zto/index";
 								}else{
-									$("#tis").text(data.msg);
-									$("#divdis").show();
+									if($.cookie('phone')!=$("#us01").val()){
+										$("#tis").text("短信验证码错误！");
+										$("#divdis").show();
+									}else{
+										$("#tis").text(data.msg);
+										$("#divdis").show();
+									}
 								}
 							}
 						});

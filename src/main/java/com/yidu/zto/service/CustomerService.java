@@ -1,7 +1,6 @@
 package com.yidu.zto.service;
 
 import com.yidu.zto.entity.Customer;
-
 import java.util.List;
 
 /**
@@ -58,4 +57,6 @@ public interface CustomerService {
      * @return
      */
     Customer phoneLogin(String phone);
+
+
 }

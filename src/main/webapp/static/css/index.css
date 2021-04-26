@@ -270,20 +270,9 @@ input {
 
 ._citys span,
 ._citys span:hover {
-	background: url(../fonts/url(agencyr.eot);
-	src: url(../fonts/agencyr.woff) format('woff'), url(../fonts/agencyr.ttf) format('truetype'), url(../fonts/agencyr.eot) format('embedded-opentype')
 }
 
-@media \0screen\,
-screen\9 {
-	._citys {
-		border: 1px solid #0096ff
-	}
-	._citys1 a {
-		display: inline;
-		zoom: 1
-	}
-}
+
 
 .border,
 .border-bottom,
@@ -589,7 +578,6 @@ screen\9 {
 
 #about .about-main .about-img .tel-box img {
 	display: inline-block;
-	visibility: middle
 }
 
 #about .about-main .about-img .tel-box img.tel {
@@ -1206,8 +1194,8 @@ screen\9 {
 	height: 40px
 }
 
-#header .header-main .header-right .login,
-#header .header-main .header-right .registere {
+#header .header-main .header-right .logins,
+#header .header-main .header-right .registeres {
 	height: 14px;
 	font-size: 12px;
 	font-family: "宋体";
@@ -1217,25 +1205,25 @@ screen\9 {
 	border-right: 1px solid #eaeaea
 }
 
-#header .header-main .header-right .login {
+#header .header-main .header-right .logins {
 	top: 32px;
 	right: 145px;
 	width: 39px
 }
 
-#header .header-main .header-right .login img {
+#header .header-main .header-right .logins img {
 	position: absolute;
 	top: -1px;
 	left: -17px
 }
 
-#header .header-main .header-right .registere {
+#header .header-main .header-right .registeres {
 	top: 32px;
 	right: 80px;
 	width: 54px
 }
 
-#header .header-main .header-right .user {
+#header .header-main .header-right .users {
 	position: absolute;
 	top: 32px;
 	right: 80px;
@@ -1266,12 +1254,12 @@ screen\9 {
 	text-align: center
 }
 
-#header .header-main .header-right .user img {
+#header .header-main .header-right .users img {
 	margin-left: 5px;
 	margin-right: 2px
 }
 
-#header .header-main .header-right .user span {
+#header .header-main .header-right .users span {
 	color: #33a2f7
 }
 
@@ -1546,7 +1534,6 @@ screen\9 {
 
 #content .content-main .corporate-profile h2 {
 	font-size: 24px;
-	font-weight: 300px;
 	margin: 18px 0;
 	border-left: 3px solid #0099d9;
 	padding-left: 24px
@@ -1680,24 +1667,6 @@ screen\9 {
 	transform: translate3d(0, 0, 0) scale(1)
 }
 
-@media \0screen\,
-screen\9 {
-	.nav-zto-menu {
-		padding-bottom: 15px!important
-	}
-	.header-right a,
-	.header-right em,
-	.header-right span {
-		display: inline;
-		zoom: 1
-	}
-	.alert {
-		display: none
-	}
-	.alert.show {
-		display: block
-	}
-}
 
 .content-main:after {
 	content: "";
@@ -3045,19 +3014,4 @@ html {
 
 .video-window .video-room video {
 	outline: 0
-}
-
-@media \0screen\,
-screen\9 {
-	.advantage-item,
-	.businessMenu-item,
-	.ex_item,
-	.itemMenu-item,
-	.num-item {
-		display: inline!important;
-		zoom: 1
-	}
-	.num-item {
-		background: #a8b0c4
-	}
 }
