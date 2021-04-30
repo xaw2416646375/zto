@@ -1,0 +1,72 @@
+.my-express .search-bar {
+ padding:30px 25px;
+ background-color:#fff
+}
+.my-express .search-bar .date {
+ width:280px;
+ margin-right:50px
+}
+.my-express .search-bar .date span {
+ padding:0
+}
+.my-express .search-bar em {
+ font-style:normal
+}
+.my-express .page {
+ padding:20px 0;
+ margin:15px auto;
+ text-align:center;
+ background-color:#fff
+}
+.my-express .info-box .barcode {
+ display:block;
+ width:100%
+}
+.my-express .info-box .bar {
+ margin-bottom:10px
+}
+.my-express .info-box .bar p {
+ font-size:18px;
+ line-height:30px;
+ text-align:center
+}
+.my-express .info-box table {
+ width:100%;
+ background-color:#ccc;
+}
+.my-express .info-box table td {
+ background-color:#fff
+}
+.my-express .info-box table td:first-child {
+ width:20%;
+ text-align:center
+}
+.my-express .info-box table td:last-child {
+ width:80%;
+ padding:15px 20px
+}
+.my-express .info-box table td em,
+.my-express .info-box table td i {
+ font-style:normal
+}
+.my-express .info-box table td h3 {
+ padding-bottom:10px
+}
+.my-express .info-box table td p {
+ line-height:25px
+}
+.my-express .info-box table td p i {
+ color:#000
+}
+.cancel-box .btn {
+ width:32%;
+ padding:15px;
+ margin:0 2% 20px 0
+}
+.cancel-box .btn:nth-child(3n+3) {
+ margin-right:0
+}
+.cancel-box .title {
+ padding:20px 0;
+ font-size:16px
+}

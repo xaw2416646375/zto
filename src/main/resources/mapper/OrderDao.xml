@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.OrderMapper">
+
+    <resultMap type="com.yidu.zto.entity.Order" id="OrderMap">
+        <result property="orderid" column="orderId" jdbcType="INTEGER"/>
+        <result property="ordernumber" column="orderNumber" jdbcType="VARCHAR"/>
+        <result property="orderstate" column="orderState" jdbcType="INTEGER"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="updatedate" column="updateDate" jdbcType="TIMESTAMP"/>
+        <result property="sendAddressid" column="send_addressId" jdbcType="INTEGER"/>
+        <result property="receiceAddressid" column="receice_addressId" jdbcType="INTEGER"/>
+        <result property="isValid" column="is_valid" jdbcType="INTEGER"/>
+        <result property="expressnumber" column="expressNumber" jdbcType="VARCHAR"/>
+        <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+        <result property="payWay" column="pay_way" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select
+          orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+        from zto.order
+        where orderId = #{orderid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderMap">
+        select
+          orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+        from zto.order
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderMap">
+        select
+        orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid,
+        expressNumber, customer_id, pay_way, user_id
+        from zto.order
+        <where>
+            <if test="orderid != null">
+                and orderId = #{orderid}
+            </if>
+            <if test="ordernumber != null and ordernumber != ''">
+                and orderNumber = #{ordernumber}
+            </if>
+            <if test="orderstate != null">
+                and orderState = #{orderstate}
+            </if>
+            <if test="createdate != null">
+                and createDate = #{createdate}
+            </if>
+            <if test="updatedate != null">
+                and updateDate = #{updatedate}
+            </if>
+            <if test="sendAddressid != null">
+                and send_addressId = #{sendAddressid}
+            </if>
+            <if test="receiceAddressid != null">
+                and receice_addressId = #{receiceAddressid}
+            </if>
+            <if test="isValid != null">
+                and is_valid = #{isValid}
+            </if>
+            <if test="expressnumber != null and expressnumber != ''">
+                and expressNumber = #{expressnumber}
+            </if>
+            <if test="customerId != null">
+                and customer_id = #{customerId}
+            </if>
+            <if test="payWay != null">
+                and pay_way = #{payWay}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="orderid" useGeneratedKeys="true">
+        insert into zto.order(orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id)
+        values (#{ordernumber}, #{orderstate}, now(), now(), #{sendAddressid}, #{receiceAddressid}, 1, #{expressnumber}, #{customerId}, #{payWay}, #{userId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="orderid" useGeneratedKeys="true">
+        insert into zto.order(orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId,
+        is_valid, expressNumber, customer_id, pay_way, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ordernumber}, #{entity.orderstate}, now(), now(),
+            #{entity.sendAddressid}, #{entity.receiceAddressid}, 1, #{entity.expressnumber},
+            #{entity.customerId}, #{entity.payWay}, #{entity.userId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="orderid" useGeneratedKeys="true">
+        insert into zto.order(orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId,
+        is_valid, expressNumber, customer_id, pay_way, user_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.ordernumber}, #{entity.orderstate}, #{entity.createDate}, #{entity.updatedate},
+            #{entity.sendAddressid}, #{entity.receiceAddressid}, 1, #{entity.expressnumber},
+            #{entity.customerId}, #{entity.payWay}, #{entity.userId})
+        </foreach>
+        on duplicate key update
+        orderNumber = values(orderNumber) , orderState = values(orderState) , createDate = values(now()) ,
+        updateDate = values(now()) , send_addressId = values(send_addressId) , receice_addressId =
+        values(receice_addressId) , is_valid = values(1) , expressNumber = values(expressNumber)
+        , customer_id = values(customer_id) , pay_way = values(pay_way) , user_id = values(user_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.order
+        <set>
+            <if test="ordernumber != null and ordernumber != ''">
+                orderNumber = #{ordernumber},
+            </if>
+            <if test="orderstate != null">
+                orderState = #{orderstate},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate},
+            </if>
+            <if test="updatedate != null">
+                updateDate = #{updatedate},
+            </if>
+            <if test="sendAddressid != null">
+                send_addressId = #{sendAddressid},
+            </if>
+            <if test="receiceAddressid != null">
+                receice_addressId = #{receiceAddressid},
+            </if>
+            <if test="isValid != null">
+                is_valid = #{isValid},
+            </if>
+            <if test="expressnumber != null and expressnumber != ''">
+                expressNumber = #{expressnumber},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId},
+            </if>
+            <if test="payWay != null">
+                pay_way = #{payWay},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+        </set>
+        where orderId = #{orderid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" >
+        delete from zto.order where orderId = #{orderid}
+    </delete>
+
+    <select id="queryAllById" resultMap="OrderMap">
+         select
+          orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+        from zto.order
+        where customer_id = #{customerId}  order by orderId desc limit 0,#{size}
+    </select>
+
+    <select id="queryAllBySend" resultMap="OrderMap">
+        SELECT
+        orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+        FROM zto.order
+        WHERE customer_id =#{customerId}
+        <if test="createDate != null and createDateTwo != null">
+            AND createDate BETWEEN #{createDate} AND #{createDateTwo}
+        </if>
+        <if test="sendName != null and sendName != ''">
+            and receice_addressId IN(SELECT order_address_id FROM zto.order_address WHERE (send_receive_man=#{sendName} or phone=#{sendName}) and address_type=0 and customer_id = #{customerId})
+        </if>
+         AND send_addressId IN (SELECT
+         order_address_id
+         FROM zto.order_address WHERE customer_id=#{customerId} AND phone=#{phone} AND address_type=1)
+        limit #{offset}, #{limit}
+    </select>
+    <select id="queryAllByReceiver" resultMap="OrderMap">
+        SELECT
+        orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+        FROM zto.order
+        WHERE customer_id =#{customerId}
+        <if test="receiceName != null and receiceName != ''">
+            and (send_addressId IN(SELECT order_address_id FROM zto.order_address WHERE (send_receive_man=#{receiceName} or phone=#{receiceName}) and address_type=1 and customer_id = #{customerId})) or (expressNumber=#{receiceName})
+        </if>
+        AND receice_addressId IN (SELECT
+        order_address_id
+        FROM zto.order_address WHERE customer_id=#{customerId} AND phone=#{phone} AND address_type=0)
+        limit #{offset}, #{limit}
+    </select>
+
+
+</mapper>
+

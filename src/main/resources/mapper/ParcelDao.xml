@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.ParcelMapper">
+
+    <resultMap type="com.yidu.zto.entity.Parcel" id="ParcelMap">
+        <result property="parcelId" column="parcel_id" jdbcType="INTEGER"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="weight" column="weight" jdbcType="VARCHAR"/>
+        <result property="goodsType" column="goods_type" jdbcType="INTEGER"/>
+        <result property="goodsNum" column="goods_num" jdbcType="INTEGER"/>
+        <result property="checkMan" column="check_man" jdbcType="INTEGER"/>
+        <result property="checkResult" column="check_result" jdbcType="INTEGER"/>
+        <result property="checkOpinion" column="check_opinion" jdbcType="VARCHAR"/>
+        <result property="barCode" column="bar_code" jdbcType="VARCHAR"/>
+        <result property="estimatePrice" column="estimate_price" jdbcType="VARCHAR"/>
+        <result property="stieId" column="stie_id" jdbcType="INTEGER"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="orderid" column="orderId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ParcelMap">
+        select
+          parcel_id, goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code, estimate_price, stie_id, remarks, orderId
+        from zto.parcel
+        where parcel_id = #{parcelId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ParcelMap">
+        select
+          parcel_id, goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code, estimate_price, stie_id, remarks, orderId
+        from zto.parcel
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="ParcelMap">
+        select
+        parcel_id, goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code,
+        estimate_price, stie_id, remarks, orderId
+        from zto.parcel
+        <where>
+            <if test="parcelId != null">
+                and parcel_id = #{parcelId}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="weight != null">
+                and weight = #{weight}
+            </if>
+            <if test="goodsType != null">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsNum != null">
+                and goods_num = #{goodsNum}
+            </if>
+            <if test="checkMan != null">
+                and check_man = #{checkMan}
+            </if>
+            <if test="checkResult != null">
+                and check_result = #{checkResult}
+            </if>
+            <if test="checkOpinion != null and checkOpinion != ''">
+                and check_opinion = #{checkOpinion}
+            </if>
+            <if test="barCode != null and barCode != ''">
+                and bar_code = #{barCode}
+            </if>
+            <if test="estimatePrice != null">
+                and estimate_price = #{estimatePrice}
+            </if>
+            <if test="stieId != null">
+                and stie_id = #{stieId}
+            </if>
+            <if test="remarks != null and remarks != ''">
+                and remarks = #{remarks}
+            </if>
+            <if test="orderid != null and orderid != ''">
+                and orderId = #{orderid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="parcelId" useGeneratedKeys="true">
+        insert into zto.parcel(goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code, estimate_price, stie_id, remarks,orderId)
+        values (#{goodsName}, #{weight}, #{goodsType}, #{goodsNum}, #{checkMan}, #{checkResult}, #{checkOpinion}, #{barCode}, #{estimatePrice}, #{stieId}, #{remarks},#{orderid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="parcelId" useGeneratedKeys="true">
+        insert into zto.parcel(goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion,
+        bar_code, estimate_price, stie_id, remarks,orderId)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.goodsName}, #{entity.weight}, #{entity.goodsType}, #{entity.goodsNum}, #{entity.checkMan},
+            #{entity.checkResult}, #{entity.checkOpinion}, #{entity.barCode}, #{entity.estimatePrice}, #{entity.stieId},
+            #{entity.remarks},#{entity.orderid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="parcelId" useGeneratedKeys="true">
+        insert into zto.parcel(goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion,
+        bar_code, estimate_price, stie_id, remarks,orderId)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.goodsName}, #{entity.weight}, #{entity.goodsType}, #{entity.goodsNum}, #{entity.checkMan},
+            #{entity.checkResult}, #{entity.checkOpinion}, #{entity.barCode}, #{entity.estimatePrice}, #{entity.stieId},
+            #{entity.remarks},#{entity.orderid})
+        </foreach>
+        on duplicate key update
+        goods_name = values(goods_name) , weight = values(weight) , goods_type = values(goods_type) , goods_num =
+        values(goods_num) , check_man = values(check_man) , check_result = values(check_result) , check_opinion =
+        values(check_opinion) , bar_code = values(bar_code) , estimate_price = values(estimate_price) , stie_id =
+        values(stie_id) , remarks = values(remarks) ,orderId =values(orderId)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.parcel
+        <set>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name = #{goodsName},
+            </if>
+            <if test="weight != null">
+                weight = #{weight},
+            </if>
+            <if test="goodsType != null">
+                goods_type = #{goodsType},
+            </if>
+            <if test="goodsNum != null">
+                goods_num = #{goodsNum},
+            </if>
+            <if test="checkMan != null">
+                check_man = #{checkMan},
+            </if>
+            <if test="checkResult != null">
+                check_result = #{checkResult},
+            </if>
+            <if test="checkOpinion != null and checkOpinion != ''">
+                check_opinion = #{checkOpinion},
+            </if>
+            <if test="barCode != null and barCode != ''">
+                bar_code = #{barCode},
+            </if>
+            <if test="estimatePrice != null">
+                estimate_price = #{estimatePrice},
+            </if>
+            <if test="stieId != null">
+                stie_id = #{stieId},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+            <if test="orderid != null and orderid != ''">
+                orderId = #{orderid},
+            </if>
+        </set>
+        where parcel_id = #{parcelId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zto.parcel where parcel_id = #{parcelId}
+    </delete>
+
+</mapper>
+
