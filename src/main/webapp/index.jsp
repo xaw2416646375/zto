@@ -249,10 +249,10 @@
 						<div class="users" style="display: block">
 							<img src="static/picture/login.png" alt="用户">
 							<c:if test="${null!=customer.nickName}">
-								<a>${customer.nickName}</a>
+								<a href="woDeZhongTon.jsp" style="cursor: pointer;">${customer.nickName}</a>
 							</c:if>
 							<c:if test="${null==customer.nickName}">
-								<a>${customer.phone}</a>
+								<a href="woDeZhongTon.jsp" style="cursor: pointer;">${customer.phone}</a>
 							</c:if>
 						</div>
 					</c:if>
@@ -858,13 +858,6 @@
 	</div>
 	</body>
 		<script type="text/javascript">
-			$(function () {
-				/*alert($("#customerId").val());*/
-				//alert($.parseJSON($("#session_customer").val()).phone);
-				/*if(null!=$("#customerId").val()&&""!=$("#customerId").val()){
-					alert("不为空");
-				}*/
-			});
 			var time=setInterval("imagesBroadcast()",4000);
 			var imgUrl=['wKhBEF_lp66ATyrLAAG4fg-3XF4445.jpg','wKhBEGBjDw2AC9vbAAzjKZ3vNY8449.jpg']
 			var slideIndex=0;

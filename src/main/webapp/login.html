@@ -121,7 +121,7 @@
 							<div class="ax-flex-row" style="margin-top: 15px">
 								<div class="ax-form-label" style="margin-left: -87px">密码：</div>
 								<div class="ax-form-con">
-									<div  class="ax-form-input" style="width: 277px"><input id="ps" style="font-size: 11px;" name="username" placeholder="请输入密码" value="" type="text"></div>
+									<div  class="ax-form-input" style="width: 277px"><input id="ps" style="font-size: 11px;" name="username" placeholder="请输入密码" value="" type="password"></div>
 								</div>
 							</div>
 						</div>
@@ -253,7 +253,6 @@
 							url:"customer/phone_login",
 							data:"phone="+$("#us01").val(),
 							success:function (data) {
-								alert($.cookie('phone')==$("#us01").val());
 								if(data.code=="200"&&$.cookie('phone')==$("#us01").val()){
 									window.location.href="http://localhost:8080/zto/index";
 								}else{
@@ -274,26 +273,24 @@
 					}
 				}
 			}
-
+			/*检查图片验证码*/
 			function checkVerifyCode() {
-				/*if($("#divdis").is(':hidden')){*/
-					$.ajax({
-						type:"post",
-						url:"customer/checkImgVerifyCode",
-						async:false,
-						data:"verificationCode="+$("#yzm01").val(),
-						success:function (msg) {
-							if(msg == 'false'){
-								$("#tis").text("图片验证码错误！");
-								$("#divdis").show();
-								getVerifiCode();
-							}else{
-								checkCode = true;
-								$("#divdis").hide();
-							}
+				$.ajax({
+					type:"post",
+					url:"customer/checkImgVerifyCode",
+					async:false,
+					data:"verificationCode="+$("#yzm01").val(),
+					success:function (msg) {
+						if(msg == 'false'){
+							$("#tis").text("图片验证码错误！");
+							$("#divdis").show();
+							getVerifiCode();
+						}else{
+							checkCode = true;
+							$("#divdis").hide();
 						}
-					});
-				/*}*/
+					}
+				});
 			}
 
 			var time;
@@ -320,7 +317,6 @@
 						$("#divdis").show();
 						$("#tis").text("验证码不正确！");
 					}
-
 				}else{
 					$("#divdis").show();
 					$("#tis").text("手机格式不正确！");

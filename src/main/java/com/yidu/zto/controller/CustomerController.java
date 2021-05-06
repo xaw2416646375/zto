@@ -9,6 +9,7 @@ import com.yidu.zto.utils.verifyCodeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * (Customer)表控制层
@@ -147,5 +150,7 @@ public class CustomerController {
         CookieUtil.setCookie("phone",mobile,"",response);
         return phoneVerifyCode;
     }
+
+
 
 }

@@ -16,7 +16,11 @@ spring:
     view:
       prefix: /
       suffix: .jsp
-  ## freemarker
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+    ## freemarker
     ##freemarker:
     ##suffix: .ftl
     ##content-type: text/html

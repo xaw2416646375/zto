@@ -4,6 +4,7 @@ import com.yidu.zto.entity.Customer;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ import java.util.List;
  */
 @Mapper
 public interface CustomerMapper {
+
+    List<HashMap<String,Object>> queryCbyId(Integer customerId);
 
     /**
      * 通过ID查询单条数据
@@ -65,6 +68,12 @@ public interface CustomerMapper {
      */
     int update(Customer customer);
 
-
+    /**
+     * 通过主键删除数据
+     *
+     * @param customerId 主键
+     * @return 影响行数
+     */
+    int deleteById(Integer customerId);
 }
 

@@ -27,6 +27,10 @@
         where customer_id = #{customerId}
     </select>
 
+    <select id="queryCbyId" resultMap="CustomerMap" parameterType="Map">
+        SELECT * FROM address a1,customer c1 WHERE a1.customer_id = c1.customer_id and a1.customer_id=#{customerId};
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CustomerMap">
         select
@@ -112,10 +116,10 @@
                 photo = #{photo},
             </if>
             <if test="birthday != null">
-                birthday = #{birthday},
+                birthday = DATE_FORMAT(#{birthday}, '%Y%m%d' )  ,
             </if>
             <if test="createDate != null">
-                create_date = #{createDate},
+                create_date =  #{createDate},
             </if>
         </set>
         where customer_id = #{customerId}
@@ -126,5 +130,9 @@
         from customer where phone = #{phone}
     </select>
 
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from yidu.customer where customer_id = #{customerId}
+    </delete>
 </mapper>
 

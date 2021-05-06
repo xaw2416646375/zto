@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +23,11 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Resource
     private CustomerMapper customerMapper;
+
+    @Override
+    public List<HashMap<String, Object>> queryCbyId(Integer customerId) {
+        return customerMapper.queryCbyId(customerId);
+    }
 
     /**
      * 通过ID查询单条数据

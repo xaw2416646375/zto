@@ -451,8 +451,6 @@
 }
 
 .home-wrapper .personal-show .info .phone {
-	padding-left: 18px;
-	background: url(/static/images/home/tel.png) no-repeat 0;
 	background-size: 12px
 }
 

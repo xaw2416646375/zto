@@ -86,7 +86,6 @@ select,
 label,
 i {
   display: inline-block;
-  vertical-align: top;
 }
 a span,
 label {

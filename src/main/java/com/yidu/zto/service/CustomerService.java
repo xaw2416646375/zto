@@ -1,6 +1,8 @@
 package com.yidu.zto.service;
 
 import com.yidu.zto.entity.Customer;
+
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,6 +12,9 @@ import java.util.List;
  * @since 2021-04-13 09:50:18
  */
 public interface CustomerService {
+
+
+    List<HashMap<String,Object>> queryCbyId(Integer customerId);
 
     /**
      * 通过ID查询单条数据
@@ -57,6 +62,5 @@ public interface CustomerService {
      * @return
      */
     Customer phoneLogin(String phone);
-
 
 }
