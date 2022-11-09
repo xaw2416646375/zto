@@ -15,8 +15,6 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>个人中心</title>
-
-    <link rel="shortcut icon" href="gimg/index.ico">
     <link href="gcss/chunk-libs.6c2bf22083d3083d6e1b.css" rel="stylesheet">
     <link href="gcss/chunk-libs.fd5c6263.css" rel="stylesheet">
     <link href="gcss/chunk-elementUI.6c2bf22083d3083d6e1b.css" rel="stylesheet">
@@ -24,7 +22,7 @@
     <link href="gcss/app.6c2bf22083d3083d6e1b.css" rel="stylesheet">
     <link href="gcss/app.605a3e76.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="gcss/chunk-0471.6c2bf22083d3083d6e1b.css">
-
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico" media="screen" />
     <!--<link rel="stylesheet" type="text/css" href="gcss/chunk-5f22.6c2bf22083d3083d6e1b.css">-->
     <!--地址-->
     <link  href="static/css/city-picker.css" rel="stylesheet"/>
@@ -51,13 +49,13 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html" >首页</a>
+                        <a href="index">首页</a>
                     </li>
                     <li class="">
-                        <a href="jijian.html" id="my-topMenu-sendOrder">预约寄件</a>
+                        <a href="ship.jsp" id="my-topMenu-sendOrder">预约寄件</a>
                     </li>
                     <li class="">
-                        <a href="/batch-create" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
+                        <a href="batchShip.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
                     </li>
                     <li class="">
                         <a href="javascript:;"><span>国际件</span></a>
@@ -70,7 +68,30 @@
                     </li>
                 </ul>
                 <div class="header-right">
-                    <div><span>欢迎你，<i>15874685845</i></span> <span id="index-exit" class="cursor">退出</span></div>
+                    <div>
+                        <input type="hidden" id="customerId" value="${customer.customerId}">
+                        <c:if test="${empty customer}" >
+                            <a  href="login.html"  class="logins">
+                                <img id="skin-login-icon" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
+                            </a>
+                            <a href="register.html"  class="registeres">
+                                <img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
+                            </a>
+                        </c:if>
+                        <c:if test="${!empty customer}">
+                            <div class="users" style="display: block">
+                                    <%--<img src="static/picture/login.png" alt="用户">--%>
+                                欢迎你，
+                                <c:if test="${null!=customer.nickName}">
+                                    <a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.nickName}</a>
+                                </c:if>
+                                <c:if test="${null==customer.nickName}">
+                                    <a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.phone}</a>
+                                </c:if>
+                                <span id="index-exit" class="cursor">退出</span>
+                            </div>
+                        </c:if>
+                    </div>
                     <!---->
                 </div>
             </div>
@@ -80,10 +101,10 @@
                 <ul class="sidebar-main">
                     <li class="nav-top"></li>
                     <li class="nav-item "><span class=""></span>
-                        <a href="woDeZhongTon.jsp" class="">我的中通</a>
+                        <a href="myZto.jsp" class="">我的中通</a>
                     </li>
                     <li class="nav-item"><span class=""></span>
-                        <a href="woDeKuaiDi.html" class="" id="leftMenu-express">我的快递</a>
+                        <a href="woDeKuaiDi.jsp" class="" id="leftMenu-express">我的快递</a>
                     </li>
                     <li class="nav-item"><span class=""></span>
                         <a href="addressselect" class="" id="leftMenu-address">我的地址簿</a>
@@ -138,15 +159,30 @@
                                 <c:if test="${null==nickname}">
                                     <p ><span>昵称:</span><span id="nc">无</span></p>
                                 </c:if>
-                               <%-- <p ><span>昵称:</span><span id="nc">${nickname}</span></p>--%>
-
-                                <p ><span>真实姓名:</span><span id="nm">${truename}</span></p>
-                                <!---->
-                                <!---->
-                                <!---->
-                                <p ><span>生日:</span><span  id="dt">${brithday}</span></p>
-                                <p ><span>省市区:</span><span id="ad" style="width: 255px">${address}</span></p>
-                                <p ><span>详细地址:</span><span id="ad01" style="width: 255px">${baddress}</span></p>
+                                <c:if test="${null!=truename}">
+                                    <p ><span>真实姓名:</span><span id="nm">${truename}</span></p>
+                                </c:if>
+                                <c:if test="${null==truename}">
+                                    <p ><span>真实姓名:</span><span id="nm">无</span></p>
+                                </c:if>
+                                <c:if test="${null!=brithday}">
+                                    <p ><span>生日:</span><span  id="dt">${brithday}</span></p>
+                                </c:if>
+                                <c:if test="${null==brithday}">
+                                    <p ><span>生日:</span><span  id="dt">无</span></p>
+                                </c:if>
+                                <c:if test="${null!=address}">
+                                    <p ><span>省市区:</span><span id="ad" style="width: 255px">${address}</span></p>
+                                </c:if>
+                                <c:if test="${null==address}">
+                                    <p ><span>省市区:</span><span id="ad" style="width: 255px">无</span></p>
+                                </c:if>
+                                <c:if test="${null!=baddress}">
+                                    <p ><span>详细地址:</span><span id="ad01" style="width: 255px">${baddress}</span></p>
+                                </c:if>
+                                <c:if test="${null==baddress}">
+                                    <p ><span>详细地址:</span><span id="ad01" style="width: 255px">无</span></p>
+                                </c:if>
                                 <button id="updateMybutton" type="button" class="el-button modify el-button--primary"><!----><!----><span>修改</span></button>
                             </div>
                             <!---->
@@ -223,7 +259,6 @@
         $("#amain12").append($("#updateMyfrom").text());
         var cid = $("#customerId").val();
         //修改修改页面中input placeholder 属性
-
         $.ajax({
             type: 'POST',
             url: 'selectOne',
@@ -232,7 +267,7 @@
                 $("#form_1").attr("value", msg.nickName);
                 $("#form_2").attr("value", msg.trueName);
                 var sex = msg.sex;
-                if (msg.sex == sex) {
+                if (msg.sex == '男') {
                     $("#form_11").attr("checked", true);
                 } else {
                     $("#form_12").attr("checked", true);
@@ -267,7 +302,6 @@
                         }
                     });
 
-                    /*datev = msg.birthday;*/
                 });
             }
         });
@@ -422,7 +456,14 @@
                 }
             }
         }
-
+        let sexs = "男";
+        $("input[name='sexnn']").click(function (){
+           $(this).attr("checked","checked");
+            sexs=$(this).val();
+        });
+        layui.use(['table','form'], function() {
+            var layer = layui.layer;
+            var $ = layui.$;
         $("#submit_1").on("click",function () {
 
             if($("#form_1").val()==""){
@@ -459,7 +500,7 @@
                 $.ajax({
                     type: 'POST',
                     url: 'update_user',
-                    data: "customerId="+$("#customerId").val()+"&nickName="+$("#form_1").val() +"&trueName="+ $("#form_2").val() +"&sex="+$("input[name='sexnn']").val()
+                    data: "customerId="+$("#customerId").val()+"&nickName="+$("#form_1").val() +"&trueName="+ $("#form_2").val() +"&sex="+sexs
                         +"&birthday="+$("#test33").val()+"&address="+$("#form_21").val() +"-"+$("#form_22").val() +"-"+$("#form_23").val() +";"+$("#form_3").val() ,
                     success: function(msg){
                         $('.phone').text(msg.phone);
@@ -494,8 +535,10 @@
                     }
                 });
                 $("#amain12").text("");
+                layer.msg("修改成功！");
                 $("#123").show();
             }
+        });
         });
         $("#updateNan").click(function(){
 

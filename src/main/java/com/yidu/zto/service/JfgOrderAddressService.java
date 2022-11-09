@@ -3,6 +3,7 @@ package com.yidu.zto.service;
 import com.yidu.zto.entity.OrderAddress;
 import com.yidu.zto.entity.OrderModel;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public interface JfgOrderAddressService {
      * @param orderModel 实例对象
      * @return 实例对象
      */
-    int insert(OrderModel orderModel);
+    int insert(OrderModel orderModel,Integer customerId);
 
     /**
      * 批量新增数据
@@ -44,7 +45,7 @@ public interface JfgOrderAddressService {
      * @param orderModel 实例对象
      * @return 实例对象
      */
-    int insertBatch (OrderModel orderModel);
+    int insertBatch (OrderModel orderModel, Integer customerId, HttpSession session);
 
     /**
      * 修改数据

@@ -94,14 +94,9 @@ public class LKAddressController {
     }
 
     @RequestMapping("aiddelete")
-    @ResponseBody
-    public ModelAndView aiddelete(HttpServletRequest request, int aid){
-        ModelAndView modelAndView = new ModelAndView();
+    public String aiddelete( int aid){
         boolean result=addressService.deleteById(aid);
-        if (result){
-            modelAndView.setViewName("addressselect");
-        }
-        return modelAndView;
+        return "forward:addressselect";
     }
 
     @RequestMapping("isDefaultupdate")

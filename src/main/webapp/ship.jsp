@@ -16,8 +16,8 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>个人中心</title>
-    <link rel="shortcut icon" href="/zto.ico">
+    <title>预约寄件</title>
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico" media="screen" />
     <link href="${pageContext.request.contextPath}/gcss/chunk-libs.6c2bf22083d3083d6e1b.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/static/css/chunk-libs.fd5c6263.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/gcss/chunk-elementUI.6c2bf22083d3083d6e1b.css" rel="stylesheet">
@@ -35,9 +35,6 @@
     <link href="${pageContext.request.contextPath}/static/css/city-picker.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/layui/css/layui.css" rel="stylesheet">
     <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
-
-
-
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery.js" ></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/city-picker.data.js" ></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/city-picker.js" ></script>
@@ -45,6 +42,7 @@
 </head>
 
 <body>
+<input type="hidden" id="customerId" value="${customer.customerId}">
 <div id="app">
     <div data-v-04fa0d38="" class="app-wrapper">
         <div data-v-04fa0d38="" class="header">
@@ -54,13 +52,13 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="" target="_blank">首页</a>
-                    </li>
-                    <li class="selected">
-                        <a href="" class="router-link-exact-active router-link-active" id="my-topMenu-sendOrder">预约寄件</a>
+                        <a href="index" >首页</a>
                     </li>
                     <li class="">
-                        <a href="piliangjijian.html" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
+                        <a href="ship.jsp" id="my-topMenu-sendOrder">预约寄件</a>
+                    </li>
+                    <li class="">
+                        <a href="batchShip.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
                     </li>
                     <li class="">
                         <a href="javascript:;"><span>国际件</span></a>
@@ -69,11 +67,18 @@
                         <a href="" class="" id="my-topMenu-help">帮助与反馈</a>
                     </li>
                     <li class="">
-                        <a href="" class="" id="my-topMenu-userCenter">个人中心</a>
+                        <a href="myZto.jsp" class="" id="my-topMenu-userCenter">个人中心</a>
                     </li>
                 </ul>
                 <div class="header-right">
-                    <div><span>欢迎你，<i>15874685845</i></span> <span id="index-exit" class="cursor">退出</span></div>
+                    <div>
+                        <c:if test="${null!=customer.nickName}">
+                            <span>欢迎你，<i><a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.nickName}</a></i>
+                        </c:if>
+                        <c:if test="${null==customer.nickName}">
+                            <span>欢迎你，<i><a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.phone}</a></i>
+                        </c:if>
+                    </span> <span id="index-exit" class="cursor">退出</span></div>
                     <!---->
                 </div>
             </div>
@@ -93,7 +98,7 @@
                             <div class="navbarLeft"><img src="${pageContext.request.contextPath}/gimg/onlineSend.png" alt=""> <span>预约寄件</span>
                                 <!----><span class="prompt">（17点前下单，业务员当天收件，17点后下单次日收件）</span></div>
                             <div class="navbarRight"><span class="prompt">每天寄件超过50单，建议</span>
-                                <a href="piliangjijian.html" class=""><button type="button" class="el-button el-button--primary el-button--small" id="create-batch"><!----><!----><span>批量寄件</span></button></a> <span class="prompt">效率更高</span></div>
+                                <a href="batchShip.jsp" class=""><button type="button" class="el-button el-button--primary el-button--small" id="create-batch"><!----><!----><span>批量寄件</span></button></a> <span class="prompt">效率更高</span></div>
                         </div>
                         <form class="el-form" id="myForm">
                             <div class="send">
@@ -390,22 +395,6 @@
                                 <h2>我的地址簿</h2> <em class="close"></em>
 
                                 <ul class="address_list" id="address_list_app">
-
-                                   <%-- <c:forEach items="${addressList}" var="address">
-                                        <li class="cb">
-                                            <c:if test="${address.addressType==1}">
-                                                    <i class="send-icon"></i>
-                                            </c:if>
-                                            <c:if test="${address.addressType==0}">
-                                                <i class="receive-icon"></i>
-                                            </c:if>
-                                            <c:if test="${address.isDefault==1}">
-                                            <span class="address_name">${address.sendReceiveMan}</span> <span class="address_phone">${address.phone}</span> <span class="i_detail">${address.province}-${address.city}-${address.district}-${address.detailAddress}</span> <em class="default" onclick="defaultAddress(${address.addressId})">默认</em></li>
-                                            </c:if>
-                                            <c:if test="${address.isDefault==0}">
-                                                <span class="address_name">${address.sendReceiveMan}</span> <span class="address_phone">${address.phone}</span> <span class="i_detail">${address.province}-${address.city}-${address.district}-${address.detailAddress}</span> <em class="set_default_address" onclick="defaultAddress(${address.addressId})">设为默认</em></li>
-                                            </c:if>
-                                    </c:forEach>--%>
                                 </ul>
                                 <div class="page">
 
@@ -416,9 +405,12 @@
 
 
 
-                        <div class="full_popup resolution_dialog" id="bgmin" style="display: none;"><div class="gray"></div> <div class="box"><h2>智能填写</h2> <em class="close"></em> <div class="input_textarea"><textarea placeholder="粘贴整段地址，自动识别姓名，电话和地址
+                        <div class="full_popup resolution_dialog" id="bgmin" style="display: none;"><div class="gray"></div> <div class="box"><h2>智能填写</h2> <em class="close"></em> <div class="input_textarea"><textarea id="textarea_01" placeholder="粘贴整段地址，自动识别姓名，电话和地址
   例：张思锐，13200000101，上海市青浦区某某街道001号某某大厦
-  此处智能解析支持一条地址解析，如有多个收件人，请点击下方添加多个收件人进行逐条解析"></textarea></div> <div class="submit"><button type="button" class="el-button el-button--primary"><!----><!----><span>提交</span></button></div></div></div>
+  此处智能解析支持一条地址解析，如有多个收件人，请点击下方添加多个收件人进行逐条解析"></textarea></div> <div class="submit">
+                            <button id="textareabutton" type="button" class="el-button el-button--primary"><!----><!----><span>提交</span></button>
+                            <button id="textareabutton_01" type="button" class="el-button el-button--primary"><!----><!----><span>提交</span></button>
+                        </div></div></div>
                         <!---->
                         <!---->
                         <!---->
@@ -476,7 +468,60 @@
     </div>
 </div>
 <script type="text/javascript">
+    $("#textareabutton_01").click(function () {
+        var testData=$("#textarea_01").val();
+        var data = {text:testData,multimode:false};
+        $.ajax({
+            type:"post",
+            url:"test/testController",
+            data:JSON.stringify(data),
+            contentType : "application/json",
+            dataType:"json",
+            success:function (msg) {
+                /* 浙江省绍兴市诸暨市浣东街道西子公寓北区电话：13905857430 衣服*/
+                $("#shouName").val(msg.name);
+                $("#shouPhone").val(msg.mobile);
+                $("#shouaddress").citypicker();
+                $("#shouaddress").citypicker("reset");
+                $("#shouaddress").citypicker("destroy");
+                $("#shouaddress").citypicker({
+                    province: msg.province_name,
+                    city: msg.city_name,
+                    district: msg.county_name
+                });
+                $("#shouaddressx").val(msg.detail);
+            }
+        });
+        $("#bgmin").attr("style","display: none")
+    })
 
+    $("#textareabutton").click(function () {
+        var testData=$("#textarea_01").val();
+        var data = {text:testData,multimode:false
+        };
+        $.ajax({
+            type:"post",
+            url:"test/testController",
+            data:JSON.stringify(data),
+            contentType : "application/json",
+            dataType:"json",
+            success:function (msg) {
+                /* 浙江省绍兴市诸暨市浣东街道西子公寓北区电话：13905857430 衣服*/
+                $("#jiName").val(msg.name);
+                $("#jiPhone").val(msg.mobile);
+                $("#jiaddress").citypicker();
+                $("#jiaddress").citypicker("reset");
+                $("#jiaddress").citypicker("destroy");
+                $("#jiaddress").citypicker({
+                    province: msg.province_name,
+                    city: msg.city_name,
+                    district: msg.county_name
+                });
+                $("#jiaddressx").val(msg.detail);
+            }
+        });
+        $("#bgmin").attr("style","display: none")
+    })
 
 
 
@@ -498,7 +543,6 @@
             type: "POST",
             url: "${pageContext.request.contextPath}/jfg/address/selectAddressAll",
             success: function(addressList){
-
                 for (let i = 0; i <addressList.length ; i++) {
                     var divAddressNei="";
                     divAddressNei="<li class='cb' onclick='dianji(this)'>"
@@ -581,11 +625,20 @@
     $(".close").click(function() {
         $("#bgmax").attr("style","display: none")
         $("#bgmin").attr("style","display: none")
-    })
-
+    });
+    $("#create-receive-analysis").click(function() {
+        $("#bgmin").attr("style","display: inline")
+        $("#textareabutton_01").show();
+        $("#textareabutton").hide();
+    });
+    $("#create-analysis").click(function() {
+        $("#bgmin").attr("style","display: inline")
+        $("#textareabutton").show();
+        $("#textareabutton_01").hide();
+    });
     $("#create-receive-analysis,#create-analysis").click(function() {
         $("#bgmin").attr("style","display: inline")
-    })
+    });
     $("#leixing").click(function() {
         $("#xialaliebiao").attr("style","display: inline")
         $("#leixing i").removeClass().addClass("el-input__icon layui-icon layui-icon-up")
@@ -759,7 +812,7 @@
                                                         url: "${pageContext.request.contextPath}/jfg/orderAddress/insertOrderAddress",
                                                         data: $("#myForm").serialize()+"&remarks="+beizhu+$("#create-remark").val(),
                                                         success: function(msg){
-                                                            alert( "Data Saved: " + msg );
+                                                            window.location.href="${pageContext.request.contextPath}/"+msg
                                                         }
                                                     });
                                                 }
@@ -783,18 +836,15 @@
             if ($("#test001").val()==""||$("#test002").val()=="") {
                 layer.msg('请填写地址');
             } else{
-
-
-                var x=30;
-                var y=10;
-                var aa=parseInt(Math.random ()*(x-y+1)+y)
-                var z=10;
-                var m=5;
-                var ab=parseInt(Math.random ()*(z-m+1)+m)
-                $("#oneprice").text(aa+" 元/kg")
-                $("#twoprice").text(ab+" 元/kg")
-
-
+                var a=$("#test001").val().split("/")
+                var b=$("#test002").val().split("/")
+                if (a[0]==b[0]){
+                    $("#oneprice").text("10 元/kg")
+                    $("#twoprice").text("6 元/kg")
+                }else {
+                    $("#oneprice").text("15 元/kg")
+                    $("#twoprice").text("8 元/kg")
+                }
             }
 
         });

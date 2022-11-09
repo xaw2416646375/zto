@@ -13,8 +13,13 @@
     </resultMap>
 
     <!--查询指定行数据-->
-    <select id="queryAllByExpressNumber" resultMap="LogisticstrackingMap">
-        SELECT * FROM logisticsTracking WHERE parcel_Id IN(SELECT parcel_Id FROM parcel WHERE orderId=(SELECT orderId FROM `order` WHERE expressNumber=#{expressNumber})) ORDER BY update_Date desc
+    <select id="queryAllByExpressNumber" resultType="com.yidu.zto.vo.LogisticstrackingModel">
+        SELECT w1.id,w1.message,w1.parcel_id,w1.update_Date,w1.currentLocation,w2.orderState
+        FROM logisticsTracking as w1 , `order` as w2 WHERE
+        parcel_Id IN(SELECT parcel_Id FROM parcel WHERE orderId=
+      (SELECT orderId FROM `order`WHERE expressNumber=#{orderNumber}))
+     AND w1.parcel_id = (SELECT parcel_id from parcel where orderId = w2.orderId)
+        ORDER BY update_Date desc
     </select>
 
     <!--查询指定行数据-->

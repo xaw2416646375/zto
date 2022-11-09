@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +36,7 @@
         </div>
         <div class="header-middle">
             <ul>
-                <li><span  
-                        class="js-home-page" >首页</span></li>
+                <li><span class="js-home-page" >首页</span></li>
                 <li class="business">
                     <span >物流业务</span>
                     <div class="business-menu clearboth international-add-new">
@@ -177,20 +178,6 @@
                         class="js-finance" >金融</span></li>
                 <li>
                     <span  class="js-goHr">招聘</span>
-<!--                    <div class="business-menu clearboth">-->
-<!--                        <div class="menu-box box-9">-->
-<!--                            <span class="menu-title">招聘</span>-->
-<!--                            <div class="menu-room clearboth">-->
-<!--                                <div class="menu_list">-->
-<!--                                    <a href="http://hr.zto.com/index.html" class="menu-item" target="_blank">投递简历</a>-->
-<!--                                    <a href="http://hr.zto.com/social/index.html" class="menu-item"-->
-<!--                                        target="_blank">社会招聘</a>-->
-<!--                                    <a href="http://hr.zto.com/school/index.html" class="menu-item"-->
-<!--                                        target="_blank">校园招聘</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </li>
                 <li>
                     <span >关于中通</span>
@@ -261,12 +248,32 @@
                     <img src="static/picture/phonenumber.png" alt="全国统一热线">
                 </div>
             </div>
-            <div class="login">
-                <img src="static/picture/login.png" alt="登录"> 登录
-            </div>
-            <div class="registere">
-                <img src="static/picture/register.png" alt="注册"> 注册
-            </div>
+            <input type="hidden" id="customerId" value="${customer.customerId}">
+            <c:if test="${empty customer}" >
+                <a  href="login.html"  class="login">
+                    <img id="skin-login-icon" style="top:2px;" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
+                </a>
+                <a href="register.html"  class="registere">
+                    <img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
+                </a>
+            </c:if>
+            <c:if test="${!empty customer}">
+                <div class="users" style="position: absolute;top: 32px;
+                                            right: 80px;
+                                            padding-right: 10px;
+                                            font-size: 12px;
+                                            font-family: '宋体';
+                                            color: #5e5e5e;
+                                            border-right: 1px solid #eaeaea;">
+                    <img src="static/picture/login.png" style="top:2px;" alt="用户">
+                    <c:if test="${null!=customer.nickName}">
+                        <a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.nickName}</a>
+                    </c:if>
+                    <c:if test="${null==customer.nickName}">
+                        <a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.phone}</a>
+                    </c:if>
+                </div>
+            </c:if>
             <div class="backold">
                 <a href="https://en.zto.com/" target="_blank" title="Switch to English version">EN</a>
             </div>
@@ -336,8 +343,8 @@
                 <div class="nav-zto-menu">
                   <span class="menu-item checked">查件（物流追踪）</span>
                   <span class="menu-item js-express-website" id="queryBranch">服务网点查询</span>
-                  <span class="menu-item js-express-price">运费时效查询</span>
-                  <span class="menu-item js-express-prohibited">违禁品查询</span>
+                  <span class="menu-item js-express-price" id="queryPrice"> 运费时效查询</span>
+                  <span class="menu-item js-express-prohibited" id="queryProhibited">违禁品查询</span>
                 </div>
               </div>
             </li>
@@ -687,9 +694,9 @@
             <h3>客户服务</h3>
             <span></span>
             <li><a href="https://my.zto.com/create">在线寄件</a></li>
-            <li><a href="/express/expressCheck.html">运单查询</a></li>
+            <li><a href="expressCheck.jsp">运单查询</a></li>
             <li><a href="/express/expressWebsite.html">服务网点查询</a></li>
-            <li><a href="/express/expressPrice.html">运费时效查询</a></li>
+            <li><a href="/express/expressPrice.jsp">运费时效查询</a></li>
             <li><a href="/express/expressProhibited.html">违禁品查询</a></li>
             <li><a href="https://kfapi.zto.com/im?channel=official"  target="_blank">客服支持</a></li>
           </ul>
@@ -812,6 +819,9 @@
   <script src="static/js/jsbarcode.js"></script>-->
 </body>
 <script type="text/javascript">
+    $(".js-home-page").click(function (){
+        window.location.href="http://localhost:8080/zto/index";
+    });
     $(function (){
         if ($.cookie("courierNumber")!=null){
             $("#txtbill").val($.cookie("courierNumber"));
@@ -872,6 +882,12 @@
     });
     $("#queryBranch").click(function (){
         window.location.href="queryMap";
+    });
+    $("#queryPrice").click(function (){
+        window.location.href="expressPrice.jsp";
+    });
+    $("#queryProhibited").click(function (){
+        window.location.href="expressProhibited.jsp";
     });
     $("#btnSearchs").click(function () {
         if($("#txtbill").val()==""){

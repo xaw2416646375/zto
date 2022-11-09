@@ -15,8 +15,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>zto</title>
-
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/gimg/index.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/logo.ico" media="screen" />
     <link href="${pageContext.request.contextPath}/gcss/chunk-libs.6c2bf22083d3083d6e1b.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/gcss/chunk-libs.fd5c6263.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/gcss/chunk-elementUI.6c2bf22083d3083d6e1b.css" rel="stylesheet">
@@ -28,7 +27,6 @@
     <link  href="${pageContext.request.contextPath}/static/css/city-picker.css" rel="stylesheet"/>
     <!--個人資料-->
     <link href="${pageContext.request.contextPath}/gcss/chunk-dcc1.6c2bf22083d3083d6e1b.css" rel="stylesheet">
-
 </head>
 <body>
 
@@ -47,7 +45,7 @@
                         <a href="${pageContext.request.contextPath}/ship.jsp" id="my-topMenu-sendOrder">预约寄件</a>
                     </li>
                     <li class="">
-                        <a href="${pageContext.request.contextPath}/piliangjijian.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
+                        <a href="${pageContext.request.contextPath}/batchShip.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
                     </li>
                     <li class="">
                         <a href="javascript:;"><span>国际件</span></a>
@@ -56,7 +54,7 @@
                         <a href="" class="" id="my-topMenu-help">帮助与反馈</a>
                     </li>
                     <li class="">
-                        <a href="${pageContext.request.contextPath}/woDeZhongTon.jsp" class="router-link-exact-active router-link-active" id="my-topMenu-userCenter">个人中心</a>
+                        <a href="${pageContext.request.contextPath}/myZto.jsp" class="router-link-exact-active router-link-active" id="my-topMenu-userCenter">个人中心</a>
                     </li>
                 </ul>
                 <div class="header-right">

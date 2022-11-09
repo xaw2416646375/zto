@@ -123,10 +123,10 @@
 										<%--<img src="static/picture/login.png" alt="用户">--%>
 										欢迎你，
 										<c:if test="${null!=customer.nickName}">
-											<a href="woDeZhongTon.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.nickName}</a>
+											<a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.nickName}</a>
 										</c:if>
 										<c:if test="${null==customer.nickName}">
-											<a href="woDeZhongTon.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.phone}</a>
+											<a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.phone}</a>
 										</c:if>
 										<span id="index-exit" class="cursor">退出</span>
 									</div>
@@ -142,7 +142,7 @@
 						<ul class="sidebar-main">
 							<li class="nav-top"></li>
 							<li class="nav-item selectedColor"><span class="selectedNav"></span>
-								<a href="woDeZhongTon.jsp" class="router-link-exact-active router-link-active">我的中通</a>
+								<a href="myZto.jsp" class="router-link-exact-active router-link-active">我的中通</a>
 							</li>
 							<li class="nav-item"><span class=""></span>
 								<a href="woDeKuaiDi.jsp" class="" id="leftMenu-express">我的快递</a>

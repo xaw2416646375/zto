@@ -14,10 +14,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>个人中心</title>
+    <title>我的地址簿</title>
     <link href="axui-v1.0.2-20210211/css/ax.css" rel="stylesheet" type="text/css" >
     <link href="axui-v1.0.2-20210211/css/ax-response.css" rel="stylesheet" type="text/css" >
-    <link rel="shortcut icon" href="gimg/index.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico" media="screen" />
     <link href="gcss/chunk-libs.6c2bf22083d3083d6e1b.css" rel="stylesheet">
     <link href="gcss/chunk-libs.fd5c6263.css" rel="stylesheet">
     <link href="gcss/chunk-elementUI.6c2bf22083d3083d6e1b.css" rel="stylesheet">
@@ -58,13 +58,13 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="index.html" >首页</a>
+                        <a href="index" >首页</a>
                     </li>
                     <li class="">
-                        <a href="jijian.html" id="my-topMenu-sendOrder">预约寄件</a>
+                        <a href="ship.jsp" id="my-topMenu-sendOrder">预约寄件</a>
                     </li>
                     <li class="">
-                        <a href="/batch-create" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
+                        <a href="batchShip.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
                     </li>
                     <li class="">
                         <a href="javascript:;"><span>国际件</span></a>
@@ -77,7 +77,30 @@
                     </li>
                 </ul>
                 <div class="header-right">
-                    <div><span>欢迎你，<i>15874685845</i></span> <span id="index-exit" class="cursor">退出</span></div>
+                    <div>
+                        <input type="hidden" id="customerId" value="${customer.customerId}">
+                        <c:if test="${empty customer}" >
+                            <a  href="login.html"  class="logins">
+                                <img id="skin-login-icon" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
+                            </a>
+                            <a href="register.html"  class="registeres">
+                                <img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
+                            </a>
+                        </c:if>
+                        <c:if test="${!empty customer}">
+                            <div class="users" style="display: block">
+                                    <%--<img src="static/picture/login.png" alt="用户">--%>
+                                欢迎你，
+                                <c:if test="${null!=customer.nickName}">
+                                    <a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.nickName}</a>
+                                </c:if>
+                                <c:if test="${null==customer.nickName}">
+                                    <a href="myZto.jsp" style="cursor: pointer;color: #33a2f7;">  ${customer.phone}</a>
+                                </c:if>
+                                <span id="index-exit" class="cursor">退出</span>
+                            </div>
+                        </c:if>
+                    </div>
                     <!---->
                 </div>
             </div>
@@ -87,10 +110,10 @@
                 <ul class="sidebar-main">
                     <li class="nav-top"></li>
                     <li class="nav-item"><span class=""></span>
-                        <a href="woDeZhongTon.jsp" class="">我的中通</a>
+                        <a href="myZto.jsp" class="">我的中通</a>
                     </li>
                     <li class="nav-item"><span class=""></span>
-                        <a href="woDeKuaiDi.html" class="" id="leftMenu-express">我的快递</a>
+                        <a href="woDeKuaiDi.jsp" class="" id="leftMenu-express">我的快递</a>
                     </li>
                     <li class="nav-item selectedColor"><span class="selectedNav"></span>
                         <a href="addressselect" class="router-link-exact-active router-link-active" id="leftMenu-address">我的地址簿</a>
@@ -190,6 +213,7 @@
                                         <tbody  id="addresstbody">
                                         <!---->
                                             <c:forEach  var="list" items="${addresslist}">
+                                                <c:set var="nums" value="${addresslist.size()}"></c:set>
                                                 <tr  class="">
                                                     <th style="font-weight:normal;background: white;font-size: 14px" class="el-table_3_column_10  is-leaf">
                                                         <div class="cell" style="margin-left: -25px;overflow: hidden;"><img id="imgid${list.addressId}" style="height: 33px;" src=""></div>
@@ -209,7 +233,7 @@
                                                     <th style="font-weight:normal;background: white;font-size: 14px"  class="el-table_3_column_15 is-leaf">
                                                         <span onclick="updateaddress(${list.addressId})" id="updateaddress_01"><a style="color: #0d95e8" >编辑</a></span>&nbsp;&nbsp;&nbsp;
                                                         <span><a style="color: #0d95e8" href="aiddelete?aid=${list.addressId}&cid=${list.customerId}">删除</a></span>&nbsp;&nbsp;&nbsp;
-                                                        <span class="ax-radius-xxl" style="width: 62px;height: 22px" id="updateisDefault${list.addressId}"><a style="width: 62px;height: 22px;color: #0d95e8;" id="uisdefault${list.addressId}" style="padding:5px;color: #0d95e8">设为默认</a></span>
+                                                        <span class="ax-radius-xxl" style=" width: 62px;height: 22px" id="updateisDefault${list.addressId}"><a style="width: 62px;height: 22px;color: #0d95e8;" id="uisdefault${list.addressId}" style="padding:5px;color: #0d95e8">设为默认</a></span>
                                                     </th>
                                                 </tr>
                                             </c:forEach>
@@ -361,6 +385,7 @@
                     </div>
                 </li>
                 <li><img src="gimg/tel.png" alt=""></li>
+                <input type="hidden" id="addressresults" value="${addressresult=="true"}">
             </ul>
             <div class="icp">
                 <div class="sub">
@@ -375,7 +400,11 @@
 </div>
 
 </body>
+
 <script type="text/javascript">
+    layui.use(['table','form'], function() {
+        var layer = layui.layer;
+        var $ = layui.$;
     <c:forEach  var="list" items="${addresslist}">
         $("#updateisDefault${list.addressId}").click(function () {
             var cid = ${list.customerId}
@@ -386,13 +415,15 @@
                     url: 'isDefaultupdate',
                     data: "aid="+aid+"&isdefault="+isdefault+"&cid="+cid,
                     success: function(msg){
-                        alert("更新成功！");
-                        window.location.reload();
+                        layer.msg("修改成功", { time: 400 }, function () {
+                            window.location.reload();
+                        });
                     }
                 });
 
-        })
+        });
     </c:forEach>
+    });
     $("#selectnamep").click(function () {
         var namephone=$("#namephone").val();
         var cid = ${cid_01}
@@ -490,8 +521,8 @@
         var isdefault =${list.isDefault};
         if (isdefault == 1){
             $("#updateisDefault${list.addressId}").css("background","#0d95e8");
-            $("#uisdefault${list.addressId}").text("默认")
-            $("#uisdefault${list.addressId}").css("color","white")
+            $("#uisdefault${list.addressId}").text("默认");
+            $("#uisdefault${list.addressId}").css("color","white");
         }
 
         var addresstype =${list.addressType};
@@ -502,10 +533,10 @@
         }
     </c:forEach>
 
-    if(${addressresult}){
-        $("#tbodynull").hide()
+    if(${nums>0}){
+        $("#tbodynull").hide();
     }else{
-        $("#tbodynull").show()
+        $("#tbodynull").show();
     }
 
     $("#insertbutton").click(function () {
@@ -529,7 +560,6 @@
                     +"&district="+address_01[2]+"&detailAddress="+address001 +"&addressType="+address1 ,
                 success: function(msg){
                     if(msg.addressId != null){
-                        alert("新增成功！");
                         window.location.reload();
                     }
                 }
@@ -549,15 +579,13 @@
     $("#xzaddress").click(function(){
         $("#xzaddressul").attr("style","min-width: 195.6px;");
         $("#xzaddressicon").removeClass().addClass("el-select__caret el-input__icon layui-icon layui-icon-up")
-    })
+    });
 
     $("#xzaddressul ul li").click(function(){
         $("#xzaddressul").attr("style","display: none; min-width: 195.6px;");
         $("#xzaddressicon").removeClass().addClass("el-select__caret el-input__icon layui-icon layui-icon-down")
         $("#xzaddress input").val($(this).text());
-    })
-
-
+    });
 
 </script>
 

@@ -1,5 +1,6 @@
 package com.yidu.zto.service;
 
+import com.yidu.zto.entity.Customer;
 import com.yidu.zto.entity.Order;
 import com.yidu.zto.entity.QueryOrderField;
 import com.yidu.zto.entity.QueryOrderModel;
@@ -70,7 +71,7 @@ public interface JfgOrderService {
      * @param queryOrderField 实例对象
      * @return 对象列表
      */
-    List<QueryOrderModel> queryAllBySendOrderModel(QueryOrderField queryOrderField);
+    List<QueryOrderModel> queryAllBySendOrderModel(QueryOrderField queryOrderField, Customer customer);
     /**
      * 查询出我的收件数据
      *

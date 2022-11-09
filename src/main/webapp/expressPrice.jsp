@@ -177,20 +177,6 @@
                         class="js-finance" >金融</span></li>
                 <li>
                     <span  class="js-goHr">招聘</span>
-<!--                    <div class="business-menu clearboth">-->
-<!--                        <div class="menu-box box-9">-->
-<!--                            <span class="menu-title">招聘</span>-->
-<!--                            <div class="menu-room clearboth">-->
-<!--                                <div class="menu_list">-->
-<!--                                    <a href="http://hr.zto.com/index.html" class="menu-item" target="_blank">投递简历</a>-->
-<!--                                    <a href="http://hr.zto.com/social/index.html" class="menu-item"-->
-<!--                                        target="_blank">社会招聘</a>-->
-<!--                                    <a href="http://hr.zto.com/school/index.html" class="menu-item"-->
-<!--                                        target="_blank">校园招聘</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </li>
                 <li>
                     <span >关于中通</span>
@@ -262,10 +248,10 @@
                 </div>
             </div>
             <c:if test="${empty customer}" >
-                <a  href="login.html"  class="login">
+                <a  href="login.html"  class="logins" style="">
                     <img id="skin-login-icon" style="top:2px;" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
                 </a>
-                <a href="register.html"  class="registere">
+                <a href="register.html"  class="registers">
                     <img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
                 </a>
             </c:if>
@@ -350,10 +336,10 @@
                   <i></i>
                 </span>
                             <div class="nav-zto-menu">
-                                <span class="menu-item js-express-check">查件（物流追踪）</span>
-                                <span class="menu-item js-express-website">服务网点查询</span>
+                                <span class="menu-item js-express-check" id="queryParcel">查件（物流追踪）</span>
+                                <span class="menu-item js-express-website" id="queryBranch">服务网点查询</span>
                                 <span class="menu-item checked">运费时效查询</span>
-                                <span class="menu-item js-express-prohibited">违禁品查询</span>
+                                <span class="menu-item js-express-prohibited" id="queryProhibited">违禁品查询</span>
                             </div>
                         </div>
                     </li>
@@ -635,6 +621,18 @@
 
 </body>
 <script>
+    $(".js-home-page").click(function (){
+        window.location.href="http://localhost:8080/zto/index";
+    });
+    $("#queryParcel").click(function (){
+        window.location.href="expressCheck.jsp";
+    });
+    $("#queryBranch").click(function (){
+        window.location.href="queryMap";
+    });
+    $("#queryProhibited").click(function (){
+        window.location.href="expressProhibited.jsp";
+    });
     $("#jijian").click(function () {
         var address_01 = $("#form_21").val()+"-"+$("#form_22").val()+"-"+$("#form_23").val()
         var address_02 = $("#form_31").val()+"-"+$("#form_32").val()+"-"+$("#form_33").val()
@@ -642,7 +640,8 @@
         var  protime =$("#product-time").val()
         var weight =$("#weight").val()
         var resultprice =$("#resultPrice").text();
-        alert("初始地："+address_01+"--目的地："+address_02+"--寄件时间:"+test1+"--预计到达时间："+protime+"--重量："+weight+"--金额："+resultprice);
+        //alert("初始地："+address_01+"--目的地："+address_02+"--寄件时间:"+test1+"--预计到达时间："+protime+"--重量："+weight+"--金额："+resultprice);
+        window.location.href="http://localhost:8080/zto/ship.jsp";
     })
     $(".price-btn").click(function () {
         var address_01 = $("#form_21").val()+"-"+$("#form_22").val()+"-"+$("#form_23").val()
@@ -661,14 +660,24 @@
         $("#resultWeight").text($("#weight").val());
         var price =0;
         if($("#form_21").val() == $("#form_31").val()){
-            price= $("#weight").val()*6+10
+            if($("#weight").val() >= 1){
+                price= ($("#weight").val()-1)*6+10
+            }
+            if($("#weight").val() < 1){
+                price= 0;
+            }
             $("#product-time").text(a[0])
         }else{
             /*var timeabc = new Array();
             timeabc =b[1].split("");*/
             var abc = parseInt(b[1]);
             var abce = parseInt(b[2]);
-            price= $("#weight").val()*10+4
+            if($("#weight").val() >= 1){
+                price= ($("#weight").val()-1)*8+15
+            }
+            if($("#weight").val() < 1){
+                price= 0;
+            }
             for(var i = 0 ; i<time01.length; i++){
                 if(b[1] == time01[i] && b[2] == 31){
                     $("#product-time").text(b[0]+"-"+(abc+1)+"-"+"1")
@@ -734,11 +743,6 @@
 <script src="https://libs.zto.cn/lib/jquery-validate/1.14.0/jquery.validate.min.js?v=a7b0833ed3"></script>
 <script src="layui/lay/modules/laydate.js"></script>
 <script src="123js/public.js"></script>
-<!-- <script src="./../js/prov.js?v=4df278eb6a"></script> -->
-<!-- <script src="https://libs.zto.cn/dynamicdata/allregion.js"></script> -->
-<!-- <script src="https://libs.zto.cn/dynamicdata/allRegion-gat.js"></script> -->
 <script src="123js/citySetComplain.js"></script>
-<!-- <script src="https://libs.zto.cn/dynamicdata/allcountry.js"></script> -->
-<!-- <script src="./../js/citySetPrice.js?v=bbf650f2ca"></script> -->
-<script src="123js/expressPrice.js"></script>
+<%--<script src="123js/expressPrice.js"></script>--%>
 <script src="static/js/jquery.js"></script>

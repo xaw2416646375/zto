@@ -3,6 +3,7 @@ package com.yidu.zto.service.impl;
 import com.yidu.zto.entity.Logisticstracking;
 import com.yidu.zto.dao.LogisticstrackingMapper;
 import com.yidu.zto.service.LogisticstrackingService;
+import com.yidu.zto.vo.LogisticstrackingModel;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,7 +27,7 @@ public class LogisticstrackingServiceImpl implements LogisticstrackingService {
      * @return 对象列表
      */
     @Override
-    public List<Logisticstracking> queryAllByExpressNumber(String expressNumber) {
+    public List<LogisticstrackingModel> queryAllByExpressNumber(String expressNumber) {
         return this.logisticstrackingMapper.queryAllByExpressNumber(expressNumber);
     }
 }

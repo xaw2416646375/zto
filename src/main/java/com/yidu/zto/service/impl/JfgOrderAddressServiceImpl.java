@@ -1,16 +1,16 @@
 package com.yidu.zto.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yidu.zto.dao.JfgAddressMapper;
-import com.yidu.zto.dao.JfgOrderMapper;
-import com.yidu.zto.dao.JfgParcelMapper;
+import com.yidu.zto.dao.*;
 import com.yidu.zto.entity.*;
-import com.yidu.zto.dao.JfgOrderAddressMapper;
+import com.yidu.zto.service.JfgBranchService;
 import com.yidu.zto.service.JfgOrderAddressService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ import static java.lang.Double.parseDouble;
  * @author makejava
  * @since 2021-04-20 22:27:16
  */
-@Service("orderAddressService")
+@Service
 public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
     @Resource
     private JfgOrderAddressMapper jfgOrderAddressMapper;
@@ -33,6 +33,8 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
     private JfgAddressMapper jfgAddressMapper;
     @Resource
     private JfgOrderMapper jfgOrderMapper;
+    @Resource
+    private JfgBranchMapper jfgBranchMapper;
     /**
      * 通过ID查询单条数据
      *
@@ -63,7 +65,8 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
      * @return 实例对象
      */
     @Override
-    public int insert(OrderModel orderModel) {
+    public int insert(OrderModel orderModel,Integer customerId) {
+
         //得到寄件地址并分割
         String[] splitAddress = orderModel.getProvince().split("/");
         //得到收件地址并分割
@@ -86,7 +89,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         //设置寄件人
         orderAddress.setSendReceiveMan(orderModel.getSendReceiveMan());
         //设置客户id
-        orderAddress.setCustomerId(1);
+        orderAddress.setCustomerId(customerId);
 
         //创建订单地址对象
         OrderAddress orderAddressTwo=new OrderAddress();
@@ -105,15 +108,15 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         //设置收件人
         orderAddressTwo.setSendReceiveMan(orderModel.getShouSendReceiveMan());
         //设置客户id
-        orderAddressTwo.setCustomerId(1);
+        orderAddressTwo.setCustomerId(customerId);
         //调用新增订单地址的方法
         int insert3 = this.jfgOrderAddressMapper.insert(orderAddress);
         //查询地址出订单地址
-        OrderAddress orderAddress1 = this.jfgOrderAddressMapper.queryAllById(1,insert3);
+        OrderAddress orderAddress1 = this.jfgOrderAddressMapper.queryAllById(customerId,insert3);
         //调用新增订单地址的方法
         int insert4 = this.jfgOrderAddressMapper.insert(orderAddressTwo);
         //查询地址出订单地址
-        OrderAddress orderAddress2 = this.jfgOrderAddressMapper.queryAllById(1,insert4);
+        OrderAddress orderAddress2 = this.jfgOrderAddressMapper.queryAllById(customerId,insert4);
         //如果选择保存不为空则新增寄件地址
         if(orderModel.getQueDing()!=null){
             //创建地址对象
@@ -133,7 +136,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
             //设置寄件人
             address.setSendReceiveMan(orderModel.getSendReceiveMan());
             //设置客户id
-            address.setCustomerId(1);
+            address.setCustomerId(customerId);
             //调用查询地址是否存在的方法
             Address address1 = this.jfgAddressMapper.queryByEx(address);
             //判断地址是否为空
@@ -166,7 +169,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
             //设置收件人
             addressTwo.setSendReceiveMan(orderModel.getShouSendReceiveMan());
             //设置客户id
-            addressTwo.setCustomerId(1);
+            addressTwo.setCustomerId(customerId);
             //调用查询地址是否存在的方法
             Address address2 = this.jfgAddressMapper.queryByEx(addressTwo);
             //判断地址是否为空
@@ -195,7 +198,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         //创建订单对象
         Order order=new Order();
         //设置客户id
-        order.setCustomerId(1);
+        order.setCustomerId(customerId);
         //设置订单号
         order.setOrdernumber(sdf+b);
         //快递单号
@@ -216,10 +219,26 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         parcel.setGoodsType(orderModel.getGoodsType());
         //设置备注
         parcel.setRemarks(orderModel.getRemarks());
+        //如果省份相同
+        if (splitAddress[0].equals(splitAddressTwo[0])){
+            //设置价格
+            parcel.setEstimatePrice((orderModel.getWeight()-1)*6+10);
+        }else{
+            //设置价格
+            parcel.setEstimatePrice((orderModel.getWeight()-1)*8+15);
+        }
         //查出订单的消息装入集合
-        Order orders = this.jfgOrderMapper.queryAllById(1);
+        Order orders = this.jfgOrderMapper.queryAllById(customerId);
         //设置订单id
         parcel.setOrderid(orders.getOrderid());
+        //设置审核结果 待审核
+        parcel.setCheckResult(0);
+        Branch branch = jfgBranchMapper.queryCity(splitAddress[2]);
+        if (branch.getBranchAddress().equals(splitAddress[1])){
+            Branch cityId = jfgBranchMapper.queryCityId(splitAddress[2], splitAddress[1]);
+            //设置网点Id
+            parcel.setStieId(cityId.getBranchId());
+        }
         //调用新增包裹的方法
         int okParcel = this.jfgParcelMapper.insert(parcel);
         //判断新增成功返回1
@@ -230,7 +249,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
     }
 
     @Override
-    public int insertBatch(OrderModel orderModel) {
+    public int insertBatch(OrderModel orderModel,Integer customerId,HttpSession session) {
         //得到寄件地址并分割
         String[] splitAddress = orderModel.getProvince().split("/");
         //创建订单地址对象
@@ -250,12 +269,12 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         //设置寄件人
         orderAddress.setSendReceiveMan(orderModel.getSendReceiveMan());
         //设置客户id
-        orderAddress.setCustomerId(1);
+        orderAddress.setCustomerId(customerId);
 
         //调用新增订单地址的方法
         int insert3 = this.jfgOrderAddressMapper.insert(orderAddress);
         //查询地址出订单地址
-        OrderAddress orderAddress1 = this.jfgOrderAddressMapper.queryAllById(1,insert3);
+        OrderAddress orderAddress1 = this.jfgOrderAddressMapper.queryAllById(customerId,insert3);
 
         //如果选择保存不为空则新增寄件地址
         if(orderModel.getQueDing()!=null){
@@ -276,7 +295,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
             //设置寄件人
             address.setSendReceiveMan(orderModel.getSendReceiveMan());
             //设置客户id
-            address.setCustomerId(1);
+            address.setCustomerId(customerId);
             //调用查询地址是否存在的方法
             Address address1 = this.jfgAddressMapper.queryByEx(address);
             //判断地址是否为空
@@ -295,6 +314,8 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
         Random random=new Random();
         //将json格式转化成Data对象
         List<Data> dataList = JSONObject.parseArray(orderModel.getData(), Data.class);
+
+        List<Order> orderList=new ArrayList<>();
         //循环出Data集合
         for (Data data1 : dataList) {
             if(data1.getName()!=null||data1.getProvince()!=null) {
@@ -315,11 +336,11 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
                 //设置收件人
                 orderAddressTwo.setSendReceiveMan(data1.getName());
                 //设置客户id
-                orderAddressTwo.setCustomerId(1);
+                orderAddressTwo.setCustomerId(customerId);
                 //调用新增订单地址的方法
                 int insert4 = this.jfgOrderAddressMapper.insert(orderAddressTwo);
                 //查询地址出订单地址
-                OrderAddress orderAddress2 = this.jfgOrderAddressMapper.queryAllById(1, insert4);
+                OrderAddress orderAddress2 = this.jfgOrderAddressMapper.queryAllById(customerId, insert4);
                 //得到时间
                 String sdf = new SimpleDateFormat("MMddHHmmss").format(new Date());
                 //随机99
@@ -331,7 +352,7 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
                 //创建订单对象
                 Order order = new Order();
                 //设置客户id
-                order.setCustomerId(1);
+                order.setCustomerId(customerId);
                 //设置订单号
                 order.setOrdernumber(sdf + b);
                 //快递单号
@@ -353,14 +374,48 @@ public class JfgOrderAddressServiceImpl implements JfgOrderAddressService {
                 //设置物品名字
                 parcel.setGoodsName(data1.getGoodsName());
                 //查出订单的消息
-                Order orders = this.jfgOrderMapper.queryAllById(1);
+                Order orders = this.jfgOrderMapper.queryAllById(customerId);
+                //将查出的订单装入集合
+                orderList.add(orders);
                 //设置订单id
                 parcel.setOrderid(orders.getOrderid());
+                //如果省份相同
+                if (splitAddress[0].equals(data1.getProvince())){
+                    //设置价格
+                    parcel.setEstimatePrice((parseDouble(data1.getWeight())-1)*6+10);
+                }else{
+                    //设置价格
+                    parcel.setEstimatePrice((parseDouble(data1.getWeight())-1)*8+15);
+                }
+                Branch branch = jfgBranchMapper.queryCity(splitAddress[2]);
+                if (branch.getBranchAddress().equals(splitAddress[1])) {
+                    Branch cityId = jfgBranchMapper.queryCityId(splitAddress[2], splitAddress[1]);
+                    parcel.setStieId(cityId.getBranchId());
+                }
                 //调用新增包裹的方法
                 int okParcel = this.jfgParcelMapper.insert(parcel);
             }
+            //创建物品对象
+            Parcel parcel = new Parcel();
+
+            double price=0;
+            for (Order order : orderList) {
+                //调用查询包裹的方法
+                Parcel parcelOne=jfgParcelMapper.queryByOrderId(order.getOrderid());
+                price=+(double)parcelOne.getEstimatePrice();
+                //设置id
+                parcel.setParcelId(parcelOne.getParcelId());
+
+            }
+
+            //设置价格
+            parcel.setEstimatePrice(price);
+            //将包裹存入会话
+            session.setAttribute("parcelOne",parcel);
 
         }
+        //将包裹存入会话
+        session.setAttribute("orderLists",orderList);
         return 0;
     }
 

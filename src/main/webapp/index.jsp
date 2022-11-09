@@ -13,7 +13,8 @@
 		<link rel="shortcut icon" type="image/x-icon" href="img/logo.ico" media="screen" />
 		<link rel="stylesheet" type="text/css" href="static/css/animate.css">
 		<link rel="stylesheet" type="text/css" href="static/css/index.css">
-		<script type="text/javascript" src="static/js/jquery-3.5.1.js" ></script>
+
+		<%--<script type="text/javascript" src="static/js/jquery-3.5.1.js" ></script>--%>
 	</head>
 
 	<body>
@@ -249,10 +250,10 @@
 						<div class="users" style="display: block">
 							<img src="static/picture/login.png" alt="用户">
 							<c:if test="${null!=customer.nickName}">
-								<a href="woDeZhongTon.jsp" style="cursor: pointer;">${customer.nickName}</a>
+								<a href="myZto.jsp" style="cursor: pointer;">${customer.nickName}</a>
 							</c:if>
 							<c:if test="${null==customer.nickName}">
-								<a href="woDeZhongTon.jsp" style="cursor: pointer;">${customer.phone}</a>
+								<a href="myZto.jsp" style="cursor: pointer;">${customer.phone}</a>
 							</c:if>
 						</div>
 					</c:if>
@@ -313,7 +314,7 @@
 		<div id="content">
 			<div class="index-banner">
 				<div class="banner-box">
-					<a href="" id="imgone" class="banner-item toZtts" style="display: inline;"><img src="static/images/wKhBEF_lp66ATyrLAAG4fg-3XF4445.jpg"></a>
+					<a href="" id="imgone" class="banner-item toZtts" style="display: inline;"><img src="static/images/wKhBD2C3KciAUdj4AAPPRetH3Ug651.jpeg"></a>
 					<div class="banner-num"><span id="dotone" class="dot cur">1</span><span id="dottwo" class="dot">2</span></div>
 				</div>
 				<div class="content-main index-main">
@@ -330,10 +331,6 @@
 						</div>
 
 						<div class="search_btn" id="btn_onlineTracking">确定</div>
-						<div class="search-record">
-							<span>最近查询记录：</span>
-							<em><i class="s-code">680000000001</i><i class="s-state">【配送中】</i></em>
-						</div>
 					</div>
 					<div class="shortcut-menu">
 						<a class="menu-item js-express-ship item-1" id="btn_onlineShipping">
@@ -856,13 +853,16 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="gjs/jquery-3.5.1.js" ></script>
+	<script type="text/javascript" src="static/js/jquery.cookie.js"></script>
 	</body>
+
 		<script type="text/javascript">
 			var time=setInterval("imagesBroadcast()",4000);
-			var imgUrl=['wKhBEF_lp66ATyrLAAG4fg-3XF4445.jpg','wKhBEGBjDw2AC9vbAAzjKZ3vNY8449.jpg']
+			var imgUrl=['wKhBD2C3KciAUdj4AAPPRetH3Ug651.jpeg','wKhBEGC0dJuAPnOVAA47RRKW90I512.jpeg']
 			var slideIndex=0;
 			function imagesBroadcast(){
-				$("#imgone img").css("display","none")
+				$("#imgone img").css("display","none");
 				if(slideIndex==1){
 					slideIndex=0;
 					$("#dotone").removeClass()
@@ -874,14 +874,26 @@
 					$("#dotone").addClass("dot")
 					$("#dottwo").removeClass()
 					$("#dottwo").addClass("dot cur")
-					
 					slideIndex++;
 				}
 				$("#imgone img").attr("src","static/images/"+imgUrl[slideIndex]).fadeIn();
 			}
-			
-			
+			document.cookie = "name=value;expires=GMT_String";
+			// 以函数方式
+			function setcookie(name, value, days) {
+				var d = new Date();
+				d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+				var expires = d.toGMTString();
+				document.cookie = name + "=" + value + ";expires=" + expires;
+			}
+			$("#btn_onlineTracking").click(function (){
+				let number = $(".query_txt").val();
+				// 将快递单号信息设置到cookie中
+				setcookie("courierNumber",number, 1);
+			});
+
 		</script>
+
 </html>
 <script src="static/js/bundle.js"></script>
 <script src="static/js/public.js"></script>

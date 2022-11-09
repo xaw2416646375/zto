@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-04-20 21:52:53
  */
-@Service("addressService")
+@Service
 public class JfgAddressServiceImpl implements JfgAddressService {
     @Resource
         private JfgAddressMapper addressDao;

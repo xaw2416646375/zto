@@ -7,7 +7,6 @@ import com.yidu.zto.service.BranchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -34,29 +33,28 @@ public class BranchController {
      * @return 所有数据
      */
     @ResponseBody
-    @RequestMapping("selectOne")
+    @RequestMapping("queryMap")
     public ModelAndView selectOne(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         List<BranchAndUserinfo> branchList =  branchService.queryselect();
         int count = 0;
         List<Coordinate> coordinateList = new ArrayList<>();
-        for (BranchAndUserinfo bl:
-             branchList) {
+        for (BranchAndUserinfo bl: branchList) {
            count++;
            String [] coor = bl.getCoordinate().split(",");
            Coordinate coordinate = new Coordinate();
            coordinate.setCount(count);
            coordinate.setLongitude(coor[0]);
            coordinate.setLatitude(coor[1]);
-            coordinate.setBranch_id(bl.getBranch_id());
-           String [] address_01 = bl.getBranch_address().split("-");
-           String address_02 = address_01[1]+address_01[2]+address_01[3];
-           coordinate.setBranch_address(address_02);
-           bl.setBranch_address(address_02);
-           coordinate.setBranch_number(bl.getBranch_number());
-           coordinate.setBranch_phone(bl.getBranch_phone());
-           coordinate.setBranch_type(bl.getBranch_type());
-           coordinate.setParent_number(bl.getParent_number());
+            coordinate.setBranch_id(bl.getBranchId());
+           //String [] address_01 = bl.getBranch_address().split("-");
+           //String address_02 = address_01[1]+address_01[2]+address_01[3];
+           coordinate.setBranch_address(bl.getBranchAddress());
+           bl.setBranchAddress(bl.getBranchAddress());
+           coordinate.setBranch_number(bl.getBranchNumber());
+           coordinate.setBranch_phone(bl.getBranchPhone());
+           coordinate.setBranch_type(bl.getBranchType());
+           coordinate.setParent_number(bl.getParentNumber());
            coordinate.setUsername(bl.getUsername());
            coordinate.setUserpass(bl.getUserpass());
            coordinate.setCompellation(bl.getCompellation());
@@ -67,7 +65,7 @@ public class BranchController {
         request.getSession().setAttribute("count",count);
         request.getSession().setAttribute("branchList",branchList);
         request.getSession().setAttribute("coordinateList",coordinateList);
-        modelAndView.setViewName("zto_expressWebsite.jsp");
+        modelAndView.setViewName("zto_expressWebsite");
         return modelAndView;
     }
 

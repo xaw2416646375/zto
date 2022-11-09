@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!-- saved from url=(0050)https://www.zto.com/express/expressProhibited.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,6 +11,36 @@
 	<title>违禁品查询 - 中通快递</title>
 	<link rel="stylesheet" type="text/css" href="./违禁品查询 - 中通快递_files/expressProhibited.css">
 	<link rel="shortcut icon" type="image/x-icon" href="https://www.zto.com/imgs/logo.ico" media="screen"><link type="text/css" rel="stylesheet" href="./违禁品查询 - 中通快递_files/skin.css">
+	<style>
+		.logins, .registeres {
+			height: 14px;
+			font-size: 12px;
+			font-family: "宋体";
+			cursor: pointer;
+			position: absolute;
+			color: #5e5e5e;
+			border-right: 1px solid #eaeaea
+		}
+
+		.logins {
+			top: 32px;
+			right: 145px;
+			width: 39px
+		}
+
+		.logins img {
+			position: absolute;
+			top: -1px;
+			left: -17px
+		}
+
+		.registeres {
+			top: 32px;
+			right: 80px;
+			width: 54px
+		}
+
+	</style>
 </head>
 
 <body style="">
@@ -159,20 +191,6 @@
                 <li><span class="js-finance">金融</span></li>
                 <li>
                     <span class="js-goHr">招聘</span>
-<!--                    <div class="business-menu clearboth">-->
-<!--                        <div class="menu-box box-9">-->
-<!--                            <span class="menu-title">招聘</span>-->
-<!--                            <div class="menu-room clearboth">-->
-<!--                                <div class="menu_list">-->
-<!--                                    <a href="http://hr.zto.com/index.html" class="menu-item" target="_blank">投递简历</a>-->
-<!--                                    <a href="http://hr.zto.com/social/index.html" class="menu-item"-->
-<!--                                        target="_blank">社会招聘</a>-->
-<!--                                    <a href="http://hr.zto.com/school/index.html" class="menu-item"-->
-<!--                                        target="_blank">校园招聘</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </li>
                 <li>
                     <span>关于中通</span>
@@ -243,12 +261,31 @@
                     <img src="./违禁品查询 - 中通快递_files/phoneNumber.png" alt="全国统一热线">
                 </div>
             </div>
-            <div class="login">
-                <img src="./违禁品查询 - 中通快递_files/login.png" alt="登录"> 登录
-            </div>
-            <div class="registere">
-                <img src="./违禁品查询 - 中通快递_files/register.png" alt="注册"> 注册
-            </div>
+			<c:if test="${empty customer}" >
+				<a  href="login.html"  class="logins" style="">
+					<img id="skin-login-icon" style="top:2px;" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
+				</a>
+				<a href="register.html"  class="registeres">
+					<img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
+				</a>
+			</c:if>
+			<c:if test="${!empty customer}">
+				<div class="users" style="position: absolute;top: 32px;
+                                            right: 80px;
+                                            padding-right: 10px;
+                                            font-size: 12px;
+                                            font-family: '宋体';
+                                            color: #5e5e5e;
+                                            border-right: 1px solid #eaeaea;">
+					<img src="static/picture/login.png" style="top:2px;" alt="用户">
+					<c:if test="${null!=customer.nickName}">
+						<a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.nickName}</a>
+					</c:if>
+					<c:if test="${null==customer.nickName}">
+						<a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.phone}</a>
+					</c:if>
+				</div>
+			</c:if>
             <div class="backold">
                 <a href="https://en.zto.com/" target="_blank" title="Switch to English version">EN</a>
             </div>
@@ -316,9 +353,9 @@
 									<i></i>
 								</span>
 								<div class="nav-zto-menu">
-									<span class="menu-item js-express-check">查件（物流追踪）</span>
-									<span class="menu-item js-express-website">服务网点查询</span>
-									<span class="menu-item js-express-price">运费时效查询</span>
+									<span class="menu-item js-express-check" id="queryParcel">查件（物流追踪）</span>
+									<span class="menu-item js-express-website" id="queryBranch">服务网点查询</span>
+									<span class="menu-item js-express-price" id="queryPrice">运费时效查询</span>
 									<span class="menu-item  checked">违禁品查询</span>
 								</div>
 							</div>
@@ -646,4 +683,20 @@
 <script language="javascript" type="text/javascript" src="./违禁品查询 - 中通快递_files/bundle.js"></script>
 <script language="javascript" type="text/javascript" src="./违禁品查询 - 中通快递_files/public.js"></script><script type="text/javascript" src="./违禁品查询 - 中通快递_files/skin.js"></script>
 <script language="javascript" type="text/javascript" src="./违禁品查询 - 中通快递_files/expressProhibited.js"></script>
-</body></html>
+<script language="javascript" type="text/javascript" src="./违禁品查询 - 中通快递_files/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+	$(".js-home-page").click(function (){
+		window.location.href="http://localhost:8080/zto/index";
+	});
+	$("#queryParcel").click(function (){
+		window.location.href="expressCheck.jsp";
+	});
+	$("#queryBranch").click(function (){
+		window.location.href="queryMap";
+	});
+	$("#queryPrice").click(function (){
+		window.location.href="expressPrice.jsp";
+	});
+</script>
+</body>
+</html>

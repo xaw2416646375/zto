@@ -84,7 +84,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="customerId" useGeneratedKeys="true">
         insert into zto.customer(phone, password, nick_name, true_name, sex, address, is_valid, photo, birthday, create_date)
-        values (#{phone}, #{password}, #{nickName}, #{trueName}, #{sex}, #{address}, #{isValid}, #{photo}, #{birthday}, #{createDate})
+        values (#{phone}, #{password}, #{nickName}, #{trueName}, #{sex}, #{address}, #{isValid}, 'default.png', #{birthday}, #{createDate})
     </insert>
 
     <!--通过主键修改数据-->

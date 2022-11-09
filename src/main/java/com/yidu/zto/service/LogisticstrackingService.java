@@ -1,6 +1,8 @@
 package com.yidu.zto.service;
 
+import com.yidu.zto.dao.LogisticstrackingMapper;
 import com.yidu.zto.entity.Logisticstracking;
+import com.yidu.zto.vo.LogisticstrackingModel;
 
 import java.util.List;
 
@@ -18,6 +20,6 @@ public interface LogisticstrackingService {
      * @param expressNumber  快递单号
      * @return 对象列表
      */
-    List<Logisticstracking> queryAllByExpressNumber(String expressNumber);
+    List<LogisticstrackingModel> queryAllByExpressNumber(String expressNumber);
 
 }

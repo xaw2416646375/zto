@@ -48,7 +48,7 @@
 								<a href="ship.jsp" id="my-topMenu-sendOrder">预约寄件</a>
 							</li>
 							<li class="">
-								<a href="piliangjijian.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
+								<a href="batchShip.jsp" class="" id="my-topMenu-sendOrderBatch">批量寄件</a>
 							</li>
 							<li class="">
 								<a href="javascript:;"><span>国际件</span></a>
@@ -57,7 +57,7 @@
 								<a href="" class="" id="my-topMenu-help">帮助与反馈</a>
 							</li>
 							<li class="">
-								<a href="woDeZhongTon.jsp" class="" id="my-topMenu-userCenter">个人中心</a>
+								<a href="myZto.jsp" class="" id="my-topMenu-userCenter">个人中心</a>
 							</li>
 						</ul>
 						<div class="header-right">
@@ -491,9 +491,10 @@
 				 */
 				table.on('tool(test)', function (data) {
 					if (data.event == "del") { // 更新客户信息
-						layer.confirm('确定要删除这条数据吗？',{icon:3, title:"客户管理"},function (index) {
+						layer.confirm('确定要删除这条数据吗？',{icon:3, title:"提示"},function (index) {
 							// 关闭确认框
 							layer.close(index);
+							layer.msg("删除成功！");
 							data.del();
 						});
 					}

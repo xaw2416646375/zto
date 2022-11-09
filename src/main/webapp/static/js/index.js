@@ -124,16 +124,16 @@
 				location.href = "../league/expressOutlets.html"
 			},
 			handleClickExpressCheck: function() {
-				location.href = "../express/expressCheck.html"
+				location.href = "expressCheck.jsp"
 			},
 			handleClickExpressWebsite: function() {
-				location.href = "../express/expressWebsite.html"
+				location.href = "../zto/queryMap"
 			},
 			handleClickExpressPrice: function() {
-				location.href = "../express/expressPrice.html"
+				location.href = "expressPrice.jsp"
 			},
 			handleClickExpressProhibited: function() {
-				location.href = "../express/expressProhibited.html"
+				location.href = "../../expressProhibited.jsp"
 			},
 			handleClickExpressComplain: function() {
 				location.href = "../express/expressComplain.html"
@@ -309,7 +309,7 @@
 			expressShip: function() {
 				/*在线寄件*/
 				console.log(zto.config);
-				var e = "http://localhost:8080/zto/ship.html";
+				var e = "http://localhost:8080/zto/ship.jsp";
 				window.open(e)
 			},
 			handleClickInvestorNew: function() {
@@ -462,10 +462,10 @@
 			if($(".bill-title-way").hasClass("bill-title-selected"))
 				if(0 < $(".ex_item").size()) {
 					for(var o = 0, n = $(".ex_item").length; o < n; o++) t += o == n - 1 ? $(".ex_item:eq(" + o + ")").find("span").html() : $(".ex_item:eq(" + o + ")").find("span").html() + ",";
-					window.location.href = "express/expressCheck.html", a(t.split(","))
+					window.location.href = "expressCheck.jsp", a(t.split(","))
 				} else "" != $(".query_txt").val() && ztoAlert("提示", "运单号错误！", "确定", "close");
 			else e = $(".phone-search-input").val(), i = function(e) {
-				e ? ztoAlert("提示", e, "确定", "") : window.location.href = "express/expressCheck.html?phoneBill=" + $(".phone-search-input").val()
+				e ? ztoAlert("提示", e, "确定", "") : window.location.href = "express/expressCheck.jsp?phoneBill=" + $(".phone-search-input").val()
 			}, e ? 0 <= e.indexOf(" ") ? i && i("手机号不能含有空格") : /^1\d{10}$/.test(e) || /^[0,4]\d{2,3}-?\d{7,8}$/.test(e) ? i && i() : i && i("手机号格式不正确") : i && i("手机号不能为空")
 		}
 
@@ -666,7 +666,7 @@
 				} else r()
 			}), $(document).on("click", ".search-record em", function() {
 				var e = $(".s-code").html();
-				null != e && (window.location.href = "express/expressCheck.html", a(e.split(",")))
+				null != e && (window.location.href = "expressCheck.jsp", a(e.split(",")))
 			});
 			var o = 0,
 				n = setInterval(function() {

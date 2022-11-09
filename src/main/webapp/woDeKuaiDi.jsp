@@ -102,7 +102,7 @@
 								<a href="myZto.jsp" class="">我的中通</a>
 							</li>
 							<li class="nav-item selectedColor"><span class="selectedNav"></span>
-								<a href="myExpress.jsp" class="router-link-exact-active router-link-active" id="leftMenu-express">我的快递</a>
+								<a href="woDeKuaiDi.jsp" class="router-link-exact-active router-link-active" id="leftMenu-express">我的快递</a>
 							</li>
 							<li class="nav-item"><span class=""></span>
 								<a href="addressselect" class="" id="leftMenu-address">我的地址簿</a>
@@ -620,7 +620,7 @@
 							"<table cellpadding=\"0\" cellspacing=\"1\" border='1'>\n" +
 							"<tr><td>寄件</td> <td><h3>"+queryOrderModel.jiAddress.sendReceiveMan+" "+queryOrderModel.jiAddress.phone+"</h3> <p>"+queryOrderModel.jiAddress.province+queryOrderModel.jiAddress.city+queryOrderModel.jiAddress.district+" "+queryOrderModel.jiAddress.detailAddress+"</p></td></tr>\n" +
 							"<tr><td>收件</td> <td><h3>"+queryOrderModel.shouAddress.sendReceiveMan+" "+queryOrderModel.shouAddress.phone+"</h3> <p>"+queryOrderModel.shouAddress.province+queryOrderModel.shouAddress.city+queryOrderModel.shouAddress.district+" "+queryOrderModel.shouAddress.detailAddress+"</p></td></tr>\n" +
-							"<tr><td>其他</td> <td><!----> <!----> <!----> <p><i>取件快递员：</i> <em>黄沙市场部许生</em></p> <p><i>快递员电话：</i> <em>13760651465</em></p></td></tr>\n" +
+							"<tr><td>其他</td> <td><!----> <!----> <!----> <p><i>取件快递员：</i> <em>小吴</em></p> <p><i>快递员电话：</i> <em>020-85485455</em></p></td></tr>\n" +
 							"</table>\n" +
 							"</div>";
 					$("#orderCons").append(orderCoss);

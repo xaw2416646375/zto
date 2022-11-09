@@ -819,7 +819,7 @@ input {
 #footer .footer-main .footer-left .logo {
  width:178px;
  height:33px;
- background:url(../imgs/bgimg.png) 0 -10px no-repeat
+ background:url(../static/images/bgimg.png) 0 -10px no-repeat
 }
 #footer .footer-main .footer-middle {
  float:left;
@@ -1334,7 +1334,7 @@ input {
  width:33px;
  height:41px;
  margin:0 auto;
- background:url(../imgs/bgimg.png) no-repeat
+ background:url(../static/images/bgimg.png) no-repeat
 }
 .link a .link-font {
  color:#c8e6fd;
@@ -1377,7 +1377,7 @@ input {
 #content .content-main .nav-zto .nav-zto-bgimg {
  width:210px;
  height:20px;
- background:url(../imgs/bgimg.png) -138px -57px no-repeat #fff;
+ background:url(../static/images/bgimg.png) -138px -57px no-repeat #fff;
  position:relative;
  z-index:2
 }
@@ -1428,7 +1428,7 @@ input {
  position:absolute;
  top:18px;
  right:15px;
- background:url(../imgs/bgimg.png) -388px -12px no-repeat;
+ background:url(../static/images/bgimg.png) -388px -12px no-repeat;
  -webkit-transition:all .2s ease;
  transition:all .2s ease
 }

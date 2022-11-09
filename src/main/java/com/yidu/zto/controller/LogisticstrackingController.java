@@ -1,10 +1,9 @@
 package com.yidu.zto.controller;
 
-import com.yidu.zto.entity.Logisticstracking;
 import com.yidu.zto.service.LogisticstrackingService;
+import com.yidu.zto.vo.LogisticstrackingModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -31,8 +30,8 @@ public class LogisticstrackingController {
      */
     @RequestMapping("selectLog")
     @ResponseBody
-    public List<Logisticstracking> selectLogisticstracking(String expressNumber) {
-        List<Logisticstracking> logList=this.logisticstrackingService.queryAllByExpressNumber(expressNumber);
+    public List<LogisticstrackingModel> selectLogisticstracking(String expressNumber) {
+        List<LogisticstrackingModel> logList=this.logisticstrackingService.queryAllByExpressNumber(expressNumber);
         if (logList!=null){
             return  logList;
         }

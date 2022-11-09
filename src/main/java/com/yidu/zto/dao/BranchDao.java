@@ -15,7 +15,6 @@ import java.util.List;
  * @since 2021-05-10 09:06:50
  */
 @Mapper
-@Controller
 public interface BranchDao {
 
     List<Branch> selectBranch();

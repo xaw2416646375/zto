@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Random;
 
 @Controller
 public class AliPayController {
@@ -28,17 +29,20 @@ public class AliPayController {
     String FORMAT = "json";
     // 支付宝网关，这是沙箱的网关
     String URL = "https://openapi.alipaydev.com/gateway.do";
+
     @RequestMapping("aliPayDo")
-    public   void   doPost (HttpServletRequest httpRequest, HttpServletResponse httpResponse)   throws ServletException, IOException {
-        //Order order=(Order)httpRequest.getSession().getAttribute("orderOne");
+    public  void  doPost (HttpServletRequest httpRequest, HttpServletResponse httpResponse)   throws ServletException, IOException {
         Parcel parcel=(Parcel) httpRequest.getSession().getAttribute("parcelOne");
-        String parcelName="快递运费";
+        String parcelName="快递运费"+parcel.getParcelId();
+        Random r = new Random();
+        int c = r.nextInt(899999) + 100000;
+        int ids = parcel.getParcelId()+c;
         AlipayClient alipayClient =  new DefaultAlipayClient( URL , APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);  //获得初始化的AlipayClient
         AlipayTradePagePayRequest alipayRequest =  new  AlipayTradePagePayRequest(); //创建API对应的request
         alipayRequest.setReturnUrl( "http://localhost:8080/zto/jfg/order/updateOrderPay" );
         alipayRequest.setNotifyUrl( "http://localhost:8080/zto/alipay/sss.html" ); //在公共参数中设置回跳和通知地址
         alipayRequest.setBizContent( "{"  +
-                "    \"out_trade_no\":\""+parcel.getParcelId()+"\","  +
+                "    \"out_trade_no\":\""+ids+"\","  +
                 "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\","  +
                 "    \"total_amount\":"+parcel.getEstimatePrice()+","  +
                 "    \"subject\":\""+parcelName+"\","  +

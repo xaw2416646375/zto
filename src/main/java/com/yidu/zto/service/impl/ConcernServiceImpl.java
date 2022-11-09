@@ -68,7 +68,7 @@ public class ConcernServiceImpl implements ConcernService {
                 concern.setSendOrShou("我收的");
             }
             //判断手机号是否一样
-            if (orderSendAddress.getPhone().equals(customer.getPhone())){
+            if (orderSendAddress.getPhone().equals(customer.getPhone())||order.getCustomerId()==customer.getCustomerId()){
                 //设置我的寄件
                 concern.setSendOrShou("我寄的");
             }
@@ -76,9 +76,8 @@ public class ConcernServiceImpl implements ConcernService {
             Logisticstracking logisticstracking = logisticstrackingMapper.queryByExpressNumber(order.getExpressnumber());
             if (logisticstracking==null){
                 Logisticstracking logisticstracking1=new Logisticstracking();
-
                 logisticstracking1.setMessage("暂无更新");
-                logisticstracking.setUpdateDate(new Date());
+                logisticstracking1.setUpdateDate(new Date());
                 //设置信息
                 concern.setLogisticstracking(logisticstracking1);
             }else {

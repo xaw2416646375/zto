@@ -157,4 +157,21 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderid=" + orderid +
+                ", ordernumber='" + ordernumber + '\'' +
+                ", orderstate=" + orderstate +
+                ", createdate=" + createdate +
+                ", updatedate=" + updatedate +
+                ", sendAddressid=" + sendAddressid +
+                ", receiceAddressid=" + receiceAddressid +
+                ", isValid=" + isValid +
+                ", expressnumber='" + expressnumber + '\'' +
+                ", customerId=" + customerId +
+                ", payWay=" + payWay +
+                ", userId=" + userId +
+                '}';
+    }
 }

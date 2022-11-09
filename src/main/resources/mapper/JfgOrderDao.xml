@@ -82,7 +82,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="orderid" useGeneratedKeys="true">
         insert into zto.order(orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id)
-        values (#{ordernumber}, #{orderstate}, now(), now(), #{sendAddressid}, #{receiceAddressid}, 1, #{expressnumber}, #{customerId}, #{payWay}, #{userId})
+        values (#{ordernumber}, #{orderstate}, now(), now(), #{sendAddressid}, #{receiceAddressid}, 1, #{expressnumber}, #{customerId}, 0, #{userId})
     </insert>
 
     <insert id="insertBatch" keyProperty="orderid" useGeneratedKeys="true">
@@ -181,20 +181,27 @@
          FROM zto.order_address WHERE customer_id=#{customerId} AND phone=#{phone} AND address_type=1)
         limit #{offset}, #{limit}
     </select>
+
     <select id="queryAllByReceiver" resultMap="OrderMap">
         SELECT
         orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
         FROM zto.order
-        WHERE customer_id =#{customerId}
+        where 1=1
         <if test="receiceName != null and receiceName != ''">
-            and (send_addressId IN(SELECT order_address_id FROM zto.order_address WHERE (send_receive_man=#{receiceName} or phone=#{receiceName}) and address_type=1 and customer_id = #{customerId})) or (expressNumber=#{receiceName})
+            and (send_addressId IN(SELECT order_address_id FROM zto.order_address WHERE (send_receive_man=#{receiceName} or phone=#{receiceName}) and address_type=1 )) or (expressNumber=#{receiceName})
         </if>
         AND receice_addressId IN (SELECT
         order_address_id
-        FROM zto.order_address WHERE customer_id=#{customerId} AND phone=#{phone} AND address_type=0)
+        FROM zto.order_address WHERE phone=#{phone} AND address_type=0)
         limit #{offset}, #{limit}
     </select>
 
-
+    <select id="queryByConcern" resultMap="OrderMap">
+    SELECT
+    orderId, orderNumber, orderState, createDate, updateDate, send_addressId, receice_addressId, is_valid, expressNumber, customer_id, pay_way, user_id
+    FROM zto.order
+    WHERE customer_id =#{customerId} and pay_way =1 order by createDate desc
+    limit 0, 2
+    </select>
 </mapper>
 

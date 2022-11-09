@@ -39,6 +39,7 @@ public class LKFileUporDown {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        request.getSession().setAttribute("customer",customer1);
         return customer1;
     }
 

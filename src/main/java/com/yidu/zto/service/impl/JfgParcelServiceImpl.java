@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-04-21 09:51:58
  */
-@Service("parcelService")
+@Service
 public class JfgParcelServiceImpl implements JfgParcelService {
     @Resource
     private JfgParcelMapper jfgParcelMapper;

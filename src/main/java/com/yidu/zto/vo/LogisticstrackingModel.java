@@ -1,10 +1,10 @@
-package com.yidu.zto.entity;
+package com.yidu.zto.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Logisticstracking)实体类
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author makejava
  * @since 2021-05-24 20:16:08
  */
-public class Logisticstracking implements Serializable {
+public class LogisticstrackingModel implements Serializable {
     private static final long serialVersionUID = -33364322908109540L;
     /**
      * 物流跟踪中间表id
@@ -44,7 +44,18 @@ public class Logisticstracking implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")//不转换使用springmvc时他不会将字符串转为date 导致400错误
     private Date updateDate;
+    /**
+     * 订单状态
+     */
+    private Integer orderState;
 
+    public Integer getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(Integer orderState) {
+        this.orderState = orderState;
+    }
 
     public Integer getId() {
         return id;
@@ -111,7 +122,8 @@ public class Logisticstracking implements Serializable {
                 ", nextstation='" + nextstation + '\'' +
                 ", username='" + username + '\'' +
                 ", message='" + message + '\'' +
-                ", updateDate=" + updateDate +
+                ", updateDate=" + updateDate+ '\'' +
+                ", orderState=" + orderState +
                 '}';
     }
 }

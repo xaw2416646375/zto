@@ -1,5 +1,7 @@
 package com.yidu.zto.controller;
 
+import com.yidu.zto.entity.Customer;
+import com.yidu.zto.entity.Order;
 import com.yidu.zto.entity.QueryOrderField;
 import com.yidu.zto.entity.QueryOrderModel;
 import com.yidu.zto.service.JfgOrderService;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -42,14 +46,10 @@ public class JfgOrderController {
      */
     @RequestMapping("queryOrderSendModels")
     @ResponseBody
-    public List<QueryOrderModel> queryOrderSendModels(QueryOrderField queryOrderField){
+    public List<QueryOrderModel> queryOrderSendModels(QueryOrderField queryOrderField,HttpSession session){
+        Customer customer = (Customer) session.getAttribute("customer");
+        List<QueryOrderModel> queryOrderModelList=this.jfgOrderService.queryAllBySendOrderModel(queryOrderField,customer);
 
-        System.out.println("queryOrderField = " + queryOrderField.toString());
-        List<QueryOrderModel> queryOrderModelList=this.jfgOrderService.queryAllBySendOrderModel(queryOrderField);
-
-        for (QueryOrderModel orderModel : queryOrderModelList) {
-            System.out.println("sss:"+orderModel.toString());
-        }
         return queryOrderModelList;
     }
 
@@ -59,15 +59,49 @@ public class JfgOrderController {
      */
     @RequestMapping("queryOrderReceiverModels")
     @ResponseBody
-    public List<QueryOrderModel> queryOrderReceiverModels(QueryOrderField queryOrderField){
-        queryOrderField.setCustomerId(1);
-        queryOrderField.setPhone("15874685845");
+    public List<QueryOrderModel> queryOrderReceiverModels(QueryOrderField queryOrderField, HttpSession session){
+        Customer customer = (Customer) session.getAttribute("customer");
+        queryOrderField.setCustomerId(customer.getCustomerId());
+        queryOrderField.setPhone(customer.getPhone());
         List<QueryOrderModel> queryOrderModelList=this.jfgOrderService.queryAllByReceiverOrderModel(queryOrderField);
-
-        for (QueryOrderModel orderModel : queryOrderModelList) {
-            System.out.println(orderModel.toString());
-        }
         return queryOrderModelList;
+    }
+
+    /**
+     * 修改支付方式
+     * @return 页面
+     */
+    @RequestMapping("updateOrderPay")
+    public String updateOrderPay(HttpServletRequest httpServletRequest){
+        //取到会话订单
+        Order order=(Order)httpServletRequest.getSession().getAttribute("orderOne");
+        if (null!=order) {
+            System.out.println("order.getCustomerId() = " + order.getCustomerId());
+            //创建订单对象
+            Order order1 = new Order();
+            //设置id
+            order1.setOrderid(order.getOrderid());
+            //设置订单支付方式
+            order1.setPayWay(1);
+            //调用修改的方法
+            jfgOrderService.update(order1);
+        }
+        //取到会话订单
+        List<Order> orderList=(List<Order>)httpServletRequest.getSession().getAttribute("orderLists");
+        if (null!=orderList){
+            for (Order orders : orderList) {
+                //创建订单对象
+                Order order2=new Order();
+                //设置id
+                order2.setOrderid(orders.getOrderid());
+                //设置订单支付方式
+                order2.setPayWay(1);
+                //调用修改的方法
+                jfgOrderService.update(order2);
+            }
+        }
+
+        return "tryAgain";
     }
 
 }

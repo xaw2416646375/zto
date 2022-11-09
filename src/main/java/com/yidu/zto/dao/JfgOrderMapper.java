@@ -105,5 +105,13 @@ public interface JfgOrderMapper {
      * @return 对象列表
      */
     List<Order> queryAllByReceiver(QueryOrderField queryOrderField);
+
+    /**
+     * 查询猜你关心的订单
+     *
+     * @param customerId 实例对象
+     * @return 对象列表
+     */
+    List<Order> queryByConcern(Integer customerId);
 }
 

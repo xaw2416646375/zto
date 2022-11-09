@@ -15,31 +15,31 @@ public class BranchAndUserinfo implements Serializable {
     /**
     * 网点id
     */
-    private Integer branch_id;
+    private Integer branchId;
     /**
     * 网点地址
     */
-    private String branch_address;
+    private String branchAddress;
     /**
     * 1.省2.市3.区4.街道
     */
-    private Integer branch_type;
+    private Integer branchType;
     /**
     * 网点管理人员
     */
-    private Integer user_id;
+    private Integer userId;
     /**
     * 网点联系号码
     */
-    private String branch_phone;
+    private String branchPhone;
     /**
     * 网点编号
     */
-    private String branch_number;
+    private String branchNumber;
     /**
     * 父网点编号
     */
-    private String parent_number;
+    private String parentNumber;
     /**
     * 坐标
     */
@@ -52,60 +52,60 @@ public class BranchAndUserinfo implements Serializable {
     private String photo; //      `photo` VARCHAR(50) DEFAULT NULL COMMENT '头像',
 
 
-    public Integer getBranch_id() {
-        return branch_id;
+    public Integer getBranchId() {
+        return branchId;
     }
 
-    public void setBranch_id(Integer branch_id) {
-        this.branch_id = branch_id;
+    public void setBranchId(Integer branchId) {
+        this.branchId = branchId;
     }
 
-    public String getBranch_address() {
-        return branch_address;
+    public String getBranchAddress() {
+        return branchAddress;
     }
 
-    public void setBranch_address(String branch_address) {
-        this.branch_address = branch_address;
+    public void setBranchAddress(String branchAddress) {
+        this.branchAddress = branchAddress;
     }
 
-    public Integer getBranch_type() {
-        return branch_type;
+    public Integer getBranchType() {
+        return branchType;
     }
 
-    public void setBranch_type(Integer branch_type) {
-        this.branch_type = branch_type;
+    public void setBranchType(Integer branchType) {
+        this.branchType = branchType;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getBranch_phone() {
-        return branch_phone;
+    public String getBranchPhone() {
+        return branchPhone;
     }
 
-    public void setBranch_phone(String branch_phone) {
-        this.branch_phone = branch_phone;
+    public void setBranchPhone(String branchPhone) {
+        this.branchPhone = branchPhone;
     }
 
-    public String getBranch_number() {
-        return branch_number;
+    public String getBranchNumber() {
+        return branchNumber;
     }
 
-    public void setBranch_number(String branch_number) {
-        this.branch_number = branch_number;
+    public void setBranchNumber(String branchNumber) {
+        this.branchNumber = branchNumber;
     }
 
-    public String getParent_number() {
-        return parent_number;
+    public String getParentNumber() {
+        return parentNumber;
     }
 
-    public void setParent_number(String parent_number) {
-        this.parent_number = parent_number;
+    public void setParentNumber(String parentNumber) {
+        this.parentNumber = parentNumber;
     }
 
     public String getCoordinate() {
@@ -154,24 +154,5 @@ public class BranchAndUserinfo implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    @Override
-    public String toString() {
-        return "BranchAndUserinfo{" +
-                "branch_id=" + branch_id +
-                ", branch_address='" + branch_address + '\'' +
-                ", branch_type=" + branch_type +
-                ", user_id=" + user_id +
-                ", branch_phone='" + branch_phone + '\'' +
-                ", branch_number='" + branch_number + '\'' +
-                ", parent_number='" + parent_number + '\'' +
-                ", coordinate='" + coordinate + '\'' +
-                ", username='" + username + '\'' +
-                ", userpass='" + userpass + '\'' +
-                ", compellation='" + compellation + '\'' +
-                ", is_valid=" + is_valid +
-                ", photo='" + photo + '\'' +
-                '}';
     }
 }

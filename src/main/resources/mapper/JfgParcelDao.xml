@@ -86,7 +86,7 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="parcelId" useGeneratedKeys="true">
         insert into zto.parcel(goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code, estimate_price, stie_id, remarks,orderId)
-        values (#{goodsName}, #{weight}, #{goodsType}, #{goodsNum}, #{checkMan}, #{checkResult}, #{checkOpinion}, #{barCode}, #{estimatePrice}, #{stieId}, #{remarks},#{orderid})
+        values (#{goodsName}, #{weight}, #{goodsType}, #{goodsNum}, #{checkMan}, 0, #{checkOpinion}, #{barCode}, #{estimatePrice}, #{stieId}, #{remarks},#{orderid})
     </insert>
 
     <insert id="insertBatch" keyProperty="parcelId" useGeneratedKeys="true">
@@ -165,5 +165,11 @@
         delete from zto.parcel where parcel_id = #{parcelId}
     </delete>
 
+    <select id="queryByOrderId" resultMap="ParcelMap">
+    select
+    parcel_id, goods_name, weight, goods_type, goods_num, check_man, check_result, check_opinion, bar_code, estimate_price, stie_id, remarks, orderId
+    from zto.parcel
+    where orderId = #{orderId}
+    </select>
 </mapper>
 

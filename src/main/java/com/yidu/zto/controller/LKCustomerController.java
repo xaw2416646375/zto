@@ -35,6 +35,7 @@ public class LKCustomerController {
     @RequestMapping("update_user")
     public Customer update_user(Customer customer, HttpServletRequest request) throws ParseException {
         Customer customer1=customerService.update(customer);
+        request.getSession().setAttribute("customer",customer1);
         return customer1;
     }
 
@@ -62,10 +63,13 @@ public class LKCustomerController {
             String [] brithday = dateString.split(" ");
             modelAndView.addObject("brithday",brithday[0]);
         }
-        if(null!=customers.getAddress()){
-            String [] address = customer.getAddress().split(";");
-            modelAndView.addObject("address",address[0]);
-            modelAndView.addObject("baddress",address[1]);
+
+        if (null!=customers.getAddress()){
+            if(customers.getAddress().trim().length()>0){
+                String [] address = customer.getAddress().split(";");
+                modelAndView.addObject("address",address[0]);
+                modelAndView.addObject("baddress",address[1]);
+            }
         }
         if (customer.getPhoto() != null){
             modelAndView.addObject("photo",customer.getPhoto());

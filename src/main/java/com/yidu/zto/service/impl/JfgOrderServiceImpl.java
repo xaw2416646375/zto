@@ -18,7 +18,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-04-23 14:59:47
  */
-@Service("orderService")
+@Service
 public class JfgOrderServiceImpl implements JfgOrderService {
     @Resource
     private JfgOrderMapper jfgOrderMapper;
@@ -132,7 +132,7 @@ public class JfgOrderServiceImpl implements JfgOrderService {
      * @return 对象列表
      */
     @Override
-    public List<QueryOrderModel> queryAllBySendOrderModel(QueryOrderField queryOrderField) {
+    public List<QueryOrderModel> queryAllBySendOrderModel(QueryOrderField queryOrderField, Customer customer) {
         //如果开始时间未定义或者等于""赋值为null
         if (queryOrderField.getCreateDate().equals("undefined")||queryOrderField.getCreateDate().equals("")){
             queryOrderField.setCreateDate(null);
@@ -145,8 +145,8 @@ public class JfgOrderServiceImpl implements JfgOrderService {
         if (queryOrderField.getSendName().equals("undefined")){
             queryOrderField.setSendName(null);
         }
-        queryOrderField.setCustomerId(1);
-        queryOrderField.setPhone("15874685845");
+        queryOrderField.setCustomerId(customer.getCustomerId());
+        queryOrderField.setPhone(customer.getPhone());
         //调用查询订单的方法
         List<Order> orderList=this.jfgOrderMapper.queryAllBySend(queryOrderField);
         //创建订单模型集合
@@ -223,7 +223,6 @@ public class JfgOrderServiceImpl implements JfgOrderService {
             //添加到订单模型集合
             orderModelList.add(orderModel);
         }
-
         return orderModelList;
     }
 

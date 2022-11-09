@@ -14,7 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-05-10 10:18:29
  */
-@Service("branchService")
+@Service
 public class JfgBranchServiceImpl implements JfgBranchService {
     @Resource
     private JfgBranchMapper jfgBranchMapper;

@@ -80,6 +80,12 @@ public interface JfgParcelMapper {
      * @return 影响行数
      */
     int deleteById(Integer parcelId);
-
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param orderId 订单id
+     * @return 实例对象
+     */
+    Parcel queryByOrderId(Integer orderId);
 }
 

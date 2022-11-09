@@ -1,84 +1,20 @@
 package com.yidu.zto.entity;
 
-<<<<<<< HEAD
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
-=======
-import java.util.Date;
-import java.io.Serializable;
->>>>>>> origin/master
 
 /**
  * (Address)实体类
  *
  * @author makejava
-<<<<<<< HEAD
  * @since 2021-04-21 10:51:33
  */
 @Component
 public class Address implements Serializable {
     private static final long serialVersionUID = 186746815735946026L;
-    /**
-    * 地址id
-    */
-    private Integer addressId;
-    /**
-    * 寄/收件人
-    */
-    private String sendReceiveMan;
-    /**
-    * 详细地址
-    */
-    private String detailAddress;
-    /**
-    * 是否默认 0 否 1是 
-    */
-    private Integer isDefault;
-    /**
-    * 地址类型 0收件 1 寄件
-    */
-    private Integer addressType;
-    /**
-    * 是否有效 0 无效 有效
-    */
-    private Integer isValid;
-    /**
-    * 客户id
-    */
-    private Integer customerId;
-    /**
-    * 手机号
-    */
-    private String phone;
-    /**
-    * 省份
-    */
-    private String province;
-    /**
-    * 市
-    */
-    private String city;
-    /**
-    * 区
-    */
-    private String district;
-    /**
-    * 地址创建时间
-    */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createdate;
-    /**
-    * 最有一次使用时间
-    */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-=======
- * @since 2021-04-20 20:59:13
- */
-public class Address implements Serializable {
-    private static final long serialVersionUID = 153924758055322532L;
     /**
      * 地址id
      */
@@ -126,11 +62,12 @@ public class Address implements Serializable {
     /**
      * 地址创建时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createdate;
     /**
      * 最有一次使用时间
      */
->>>>>>> origin/master
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lastUseDate;
 
 
@@ -256,8 +193,4 @@ public class Address implements Serializable {
                 ", lastUseDate=" + lastUseDate +
                 '}';
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
