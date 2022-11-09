@@ -1,32 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：95311" name="Description" />
-  <meta content="中通快递单号查询,网点查询,投诉电话查询,在线寄件" name="Keywords" />
-  <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：95311" name="searchtitle" />
-  <script>
-    var _hmt = _hmt || []
-      ; (function () {
-        var hm = document.createElement('script')
-        hm.src = 'https://hm.baidu.com/hm.js?53a93979e64ab8e76c06653f6830c385'
-        var s = document.getElementsByTagName('script')[0]
-        s.parentNode.insertBefore(hm, s)
-      })()
-  </script>
-  <title>查件 - 中通快递</title>
-  <link rel="stylesheet" type="text/css" href="static/css/expresscheck.css" />
-  <link rel="shortcut icon" type="image/x-icon" href="images/logo.ico" media="screen" />
+    <meta charset="UTF-8">
+    <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：95311" name="Description"/>
+    <meta content="中通快递单号查询,网点查询,投诉电话查询,在线寄件" name="Keywords"/>
+    <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：95311" name="searchtitle"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>运费时效 - 中通快递</title>
+    <link rel="stylesheet" type="text/css" href="123css/expressPrice.css">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo.ico" media="screen" />
+    <link rel="stylesheet" href="layui/css/modules/laydate/default/laydate.css" media="all">
+    <link  href="static/css/city-picker-one.css" rel="stylesheet"/>
 </head>
 
 <body>
-  <scirpt src="../js/tingyun-rum.js?v=e21304b160"></scirpt>
+<scirpt src="js/tingyun-rum.js?v=e21304b160"></scirpt>
+<script type="text/javascript" src="static/js/jquery.js" ></script>
+<script type="text/javascript" src="static/js/city-picker.data.js" ></script>
+<script type="text/javascript" src="static/js/city-picker-one.js" ></script>
+<link href="layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="layui/layui.js" ></script>
 <div id="header">
     <div class="header-main">
         <div class="header-left">
             <div class="logo-box">
-                <img src="static/picture/logo.png" alt="logo" class="logo">
+                <img src="img/logo.png" alt="logo" class="logo">
             </div>
 
         </div>
@@ -256,15 +258,34 @@
         <div class="header-right">
             <div class="phone-number">
                 <div class="phone-number-box">
-                    <img src="static/picture/phonenumber.png" alt="全国统一热线">
+                    <img src="js_01/phoneNumber.png" alt="全国统一热线">
                 </div>
             </div>
-            <div class="login">
-                <img src="static/picture/login.png" alt="登录"> 登录
-            </div>
-            <div class="registere">
-                <img src="static/picture/register.png" alt="注册"> 注册
-            </div>
+            <c:if test="${empty customer}" >
+                <a  href="login.html"  class="login">
+                    <img id="skin-login-icon" style="top:2px;" class="login-img" src="static/picture/login.png" alt="登录"> <span class="login-text">登录</span>
+                </a>
+                <a href="register.html"  class="registere">
+                    <img id="skin-register-icon" class="login-img" src="static/picture/register.png" alt="注册"> <span class="login-text">注册</span>
+                </a>
+            </c:if>
+            <c:if test="${!empty customer}">
+                <div class="users" style="position: absolute;top: 32px;
+                                            right: 80px;
+                                            padding-right: 10px;
+                                            font-size: 12px;
+                                            font-family: '宋体';
+                                            color: #5e5e5e;
+                                            border-right: 1px solid #eaeaea;">
+                    <img src="static/picture/login.png" style="top:2px;" alt="用户">
+                    <c:if test="${null!=customer.nickName}">
+                        <a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.nickName}</a>
+                    </c:if>
+                    <c:if test="${null==customer.nickName}">
+                        <a href="myZto.jsp" style="cursor: pointer;color: #25a4bb;">${customer.phone}</a>
+                    </c:if>
+                </div>
+            </c:if>
             <div class="backold">
                 <a href="https://en.zto.com/" target="_blank" title="Switch to English version">EN</a>
             </div>
@@ -273,9 +294,7 @@
             </div>
         </div>
     </div>
-</div>
-  <!-- 我就是一个分隔符 -->
-  <div id="js-header-wrap" class="header-wrap">
+</div> <div id="js-header-wrap" class="header-wrap">
 <div id="content">
 	<div class="link">
 		<ul>
@@ -307,356 +326,180 @@
 	</div>
 </div>
 </div>
-  <div id="banner">
+<div id="banner">
     <div class="banner_box">
-      <img src="static/picture/express_banner.jpg" />
+        <img src="js_01/express_banner.jpg">
     </div>
-  </div>
-  <div id="content">
+</div>
+<div id="content">
     <div class="content-main">
-      <div class="nav-zto js-nav-fixed">
-        <div class="nav-zto-bgimg"></div>
-        <div class="nav-zto-room">
-          <h1>客户服务</h1>
-          <ul>
-            <li>
-              <div class="nav-zto-font">
+        <div class="nav-zto js-nav-fixed">
+            <div class="nav-zto-room">
+                <h1>客户服务</h1>
+                <ul>
+                    <li>
+                        <div class="nav-zto-font">
                 <span class="nav-item js-express-ship">寄件服务
                   <i></i>
                 </span>
-              </div>
-            </li>
-            <li>
-              <div class="nav-zto-font show">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-zto-font show">
                 <span class="nav-item">查询服务
                   <i></i>
                 </span>
-                <div class="nav-zto-menu">
-                  <span class="menu-item checked">查件（物流追踪）</span>
-                  <span class="menu-item js-express-website">服务网点查询</span>
-                  <span class="menu-item js-express-price">运费时效查询</span>
-                  <span class="menu-item js-express-prohibited">违禁品查询</span>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="nav-zto-font">
+                            <div class="nav-zto-menu">
+                                <span class="menu-item js-express-check">查件（物流追踪）</span>
+                                <span class="menu-item js-express-website">服务网点查询</span>
+                                <span class="menu-item checked">运费时效查询</span>
+                                <span class="menu-item js-express-prohibited">违禁品查询</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-zto-font">
                 <span class="nav-item">客服支持
                   <i></i>
                 </span>
-                <div class="nav-zto-menu">
-                  <span class="menu-item js-express-questions">常见问题</span>
-                  <span class="menu-item js-express-suggest">投诉建议</span>
-                </div>
-              </div>
-            </li>
-          </ul>
-          <i class="jag"></i>
-        </div>
-      </div>
-      <div class="express-cont">
-        <!-- start 陈海霞 -->
-        <div id="expressNotice" class="express-notice">
-          <div class="notice-cont-box">
-            <div class="notice-horn"></div>
-            <div class="notice-cont">
-              <marquee id="noticeCont" direction="left" behavior="scroll" onMouseOut="this.start()"
-                onMouseOver="this.stop()">
-                中通快递面向收件用户承诺长三角核心城市次日达，超承诺时效24小时以上，可通过官方服务（在线客服、热线电话等）获得相应补偿，详见服务标准
-              </marquee>
+                            <div class="nav-zto-menu">
+                                <!--<span class="menu-item js-express-complain">客户投诉电话</span>-->
+                                <span class="menu-item js-express-questions">常见问题</span>
+                                <span class="menu-item js-express-suggest">投诉建议</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <i class="jag"></i>
             </div>
-            <div id="btnViewDetail" class="btn-detail">查看详情</div>
-          </div>
-          <div id="btnCloseNotice" class="btn-close"></div>
         </div>
-        <!-- end 陈海霞 -->
-        <div class="express-title-box">
-          <h2 class="express-title exCheck selectedExCheck wayExpress">运单号查询</h2>
-          <h2 class="express-title exCheck phoneExpress">手机号查询</h2>
-        </div>
+        <div class="express-cont overall price">
+            <h2 class="express-title exPrice">运费时效查询</h2>
 
-        <!-- 运单查询模块 -->
-        <div class="wayExpressBox">
-          <div class="search_txt">
-            <div class="inputItem">
-              <textarea id="txtbill" class="query_txt" placeholder="输入1个或最多10个运单号（多个请用；隔开）"
-                onkeyup="this.value = this.value.replace(/[\u4e00-\u9fa5_]/g, '')"
-                onafterpaste="this.value=this.value.replace(/[\u4e00-\u9fa5_]/g, '')"></textarea>
-            </div>
-            <div class="inputGray"></div>
-          </div>
-          <div class="search_box">
-            <input id="btnSearch" type="button" class="search_btn" value="查询" />
-            <span class="lately-record">最近查询记录（<i></i>）</span>
-            <div class="record">
-              <i class="record-arrow"></i>
-            </div>
-          </div>
-          <div class="result-list"></div>
-        </div>
+            <div class="price-cont">
 
-        <!-- 手机号查询模块 -->
-        <div class="phoneExpressBox hidden">
-          <div class="inputBox">
-            <span>手机号：</span>
-            <input type="text" class="phoneInput" placeholder="请输入手机号" />
-          </div>
-          <div class="inputBox">
-            <div>
-              <span>图形验证码：</span>
-              <input type="text" class="picValidateCode" id="picValidateCode" placeholder="请输入图形验证码" />
-              <img src="" class="picValidate" id="picValidate" />
-            </div>
-          </div>
-          <div class="inputBox">
-            <div>
-              <span>验证码：</span>
-              <input type="text" class="validateInput" placeholder="请输入验证码" />
-            </div>
-            <input type="button" class="validateInputBtn" value="获取验证码" />
-          </div>
-          <input type="button" id="phoneSearchBtn" class="submitLogin" value="查询" />
-        </div>
-      </div>
-      <div class="express-code">
-        <strong class="express-title code">单号订阅</strong>
-        <div class="code-cont">
-          <p class="code-hint">想要实时追踪此运单状态？扫码订阅，仅需一步!</p>
-          <img src="static/picture/code_wechat.jpg" id="subscribeQrCode" />
-          <p>打开微信或支付宝扫描上方二维码即可订阅成功</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="jump">
-    <div class="jump-box" data-order="">
-      <span class="jump-close"></span>
-      <div class="jump-cont grade">
-        <div class="jump-top">
-          <span class="order-code">单号：
-            <em>680000000001</em>
-          </span>
-          <span class="order-state">已签收</span>
-        </div>
-        <div class="grade-box">
-          <span class="grade-title">时效评分：</span>
-          <div class="grade-list">
-            <span class="star star-1"></span>
-            <span class="star star-2"></span>
-            <span class="star star-3"></span>
-            <span class="star star-4"></span>
-            <span class="star star-5"></span>
-          </div>
-        </div>
-        <div class="grade-box">
-          <span class="grade-title">服务态度：</span>
-          <div class="grade-list">
-            <span class="star star-1"></span>
-            <span class="star star-2"></span>
-            <span class="star star-3"></span>
-            <span class="star star-4"></span>
-            <span class="star star-5"></span>
-          </div>
-        </div>
-        <textarea class="suggest-box" placeholder="如果您有任何意见或者奇思妙想，请一定告诉我们"></textarea>
-        <span class="jump-btn gradeok">确定</span>
-      </div>
-      <div class="jump-cont contact">
-        <div class="jump-top">
-          <strong class="jump-title title_phone">联系派件员</strong>
-        </div>
-        <div class="contact-box">
-          <div class="contact-title">
-            <strong>免费电话咨询</strong>
-            <p>请输入您的手机，点击“免费呼叫”按钮，就可以免费联系派件员！</p>
-          </div>
-          <div class="contact-form">
-            <span>我的手机:</span>
-            <form id="phoneForm">
-              <input type="text" class="contact-txt" autocomplete="off" maxlength="11" name="phone1" id="phone1"
-                onkeyup="this.value = this.value.replace(/\D/g, '')"
-                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-              <input type="submit" class="contact-btn" id="phone-call" value="免费呼叫" />
-            </form>
-          </div>
-          <div class="courier-phone">
-            <span>派件员手机</span>
-            <em>13013139123</em>
-          </div>
-        </div>
-        <div class="contact-box last">
-          <div class="contact-title title_message">
-            <strong>免费短信催件</strong>
-            <p>请输入您的手机，点击“免费短信”按钮，就可以免费联系派件员！</p>
-          </div>
-          <div class="contact-form">
-            <span>我的手机:</span>
-            <form id="messageForm">
-              <input type="text" class="contact-txt" maxlength="11" name="phone2" id="phone2"
-                onkeyup="this.value = this.value.replace(/\D/g, '')"
-                onafterpaste="this.value=this.value.replace(/\D/g,'')" />
-              <input type="submit" class="contact-btn" id="message-call" value="免费短信" />
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- start 陈海霞 2020-5-18 -->
-  <div id="deliveryMask" class="delivery">
-    <div id="deliveryModal" class="delivery-modal">
-      <img id="btnCloseModal" class="btn-close" src="static/picture/btn-close.png" />
-      <div class="modal-title">
-        <img class="modal-title-icon" src="static/picture/icon.png" />
-        <div class="modal-title-text">预约派送</div>
-      </div>
-      <div class="modal-cont">
-        <div class="modal-cont-block">
-          <div class="block-title">订单信息</div>
-          <div class="block-cont">
-            <div class="text flex-center">
-              <div class="text-title">运单号：</div>
-              <div id="orderBillCode" class="text-value">-</div>
-            </div>
-
-            <div class="flex-box">
-              <div class="cont-half">
-                <div class="text flex-center">
-                  <div class="text-title">收件人：</div>
-                  <div id="orderReceiveName" class="text-value">-</div>
-                </div>
-              </div>
-              <div class="cont-half">
-                <div class="text flex-center">
-                  <div class="text-title">联系方式：</div>
-                  <div id="orderProblemReplyMobile" class="text-value">-</div>
-                </div>
-              </div>
-            </div>
-            <div class="text">
-              <div class="text-title">地址：</div>
-              <div id="orderReceiveAddress" class="text-value text-address">-</div>
-            </div>
-            <div class="flex-top">
-              <div class="cont-half">
-                <div class="text flex-center">
-                  <div class="text-title">异常信息：</div>
-                  <div id="orderProblemReason" class="text-value">-</div>
-                </div>
-              </div>
-              <div class="cont-half">
-                <div id="checkBtnBlock" class="text">
-                  <div class="text-title">是否真实：</div>
-                  <div id="checkedBtn" class="text-value flex-box">
-                    <div class="flex-item">
-                      <img id="btnIcon" class="flex-item-icon" src="static/picture/icon1-1.png" />
-                      <div id="btnText" class="flex-item-text">真实</div>
+                <form class="price-form" id="priceForm" style="width: 800px">
+                    <div>
+                        <span>初始地：</span>
                     </div>
-                  </div>
-                  <div id="noCheckBtn" class="text-value flex-box">
-                    <div id="clickIcon1" class="flex-item">
-                      <img class="flex-item-icon" src="static/picture/icon1-1.png" />
-                      <div class="flex-item-text">真实</div>
+                    <div>
+                       <!-- <input type="text" data-toggle="city-picker"   name="start" readonly
+                               placeholder="请选择省市区"
+                               value=""/>-->
+                        <div class="layui-form">
+                            <div class="layui-form-item" id="area-picker">
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_21" name="province" class="province-selector"  lay-filter="province-1">
+                                        <option value="">请选择省</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_22" name="city" class="city-selector"  lay-filter="city-1">
+                                        <option value="">请选择市</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_23" name="county" class="county-selector"  lay-filter="county-1">
+                                        <option value="">请选择区</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div id="yz05" style="color: red;font-size: 11px;display: none">a</div>
+                        </div>
+
                     </div>
-                    <div id="clickIcon2" class="flex-item">
-                      <img class="flex-item-icon" src="static/picture/icon2-1.png" />
-                      <div class="flex-item-text">不确定</div>
+                    <div>
+                        <span>目的地：</span>
                     </div>
-                    <div id="clickIcon3" class="flex-item">
-                      <img class="flex-item-icon" src="static/picture/icon3-1.png" />
-                      <div class="flex-item-text">不真实</div>
+                    <div>
+                        <div class="layui-form">
+                            <div class="layui-form-item" id="area-picker_01">
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_31" name="province1" class="province-selector"  lay-filter="province-2">
+                                        <option value="">请选择省</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_32" name="city1" class="city-selector"  lay-filter="city-2">
+                                        <option value="">请选择市</option>
+                                    </select>
+                                </div>
+                                <div class="layui-input-inline" style="width: 150px;">
+                                    <select id="form_33" name="county1" class="county-selector"  lay-filter="county-2">
+                                        <option value="">请选择区</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div id="yz06" style="color: red;font-size: 11px;display: none">a</div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="price-txtbox">
+                        <span>重量：</span>
+                        <input type="text" class="price-txt weight" id="weight" name="weight" value="1"
+                               onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                               onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                        <em class="weight-unit">KG</em>
+                    </div>
+                    <div class="price-txtbox">
+                        <span>寄件时间：</span>
+                        <input type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd" style="border: white;padding-top: 10px;"/>
+                        <i class=" time-input-icon weight-unit" style=" cursor: pointer;"/>
+                    </div>
+                    <input  type="button" class="price-btn" data-type="0" value="查询"/>
+                </form>
+            </div>
+
+            <div id="jj" class="price-result" style="display: none">
+                <div class="result-item">
+                    <div class="product-type">产品类型</div>
+                    <div class="product-weight">实际计费重量</div>
+                    <div class="product-time">预估送达时间</div>
+                    <div class="product-price">预估费用</div>
+                    <div class="operatione"></div>
                 </div>
-              </div>
+                <div class="result-item result-item-list">
+                    <div class="product-type">
+                        <span class="item-number">
+                        标准快递
+                        </span>
+
+                    </div>
+                    <div class="product-weight">
+                        <span class="item-number">
+                                <i id="resultWeight">0</i>
+                                <em>KG</em>
+                              </span>
+                    </div>
+                    <div class="product-time">
+                            <span class="item-number">
+                        <i id="product-time">暂无数据</i>
+                        </span>
+                    </div>
+                    <div class="product-price">
+                        <span class="item-number">
+                                <i id="resultPrice" class="resultPriceClass">0</i>
+                                <em>元</em>
+                              </span></div>
+                    <div class="operatione"><a id="jijian" class="ship_a js-express-ship">在线寄件</a></div>
+                </div>
+
             </div>
-          </div>
+            <div class="price-hint" id="123" style="display: none">
+            <strong>说明</strong>
+            <p class="newYearTip"><span class="newYearTip-text">注：春节期间寄快递将额外收取一定服务费，详见春节活动</span> ></p>
+            <p>尊享定时取服务价格以选择服务时公示为准。</p>
+            <p>此报价重量是按1进位处理。</p>
+            <p class="p_text"><span>此报价为指导价仅供参考，详情请咨询中通当地营业网点</span>
+                <a class="js-express-website">[网点分布]</a>。</p>
+            <p class="gray">注：轻抛货的计费重量按货物长×高×宽（CM）÷6000计算。
+                <br/>不规则货物，包括圆锥、圆柱状物体按长方体计算，为长、宽、高三个方向的最大尺寸相乘。计算结果仅供参考！</p>
+            </div>
         </div>
-        <div class="modal-cont-block">
-          <div id="blockCont" class="block-left">
-            <div class="block-title">请选择处理方式</div>
-            <div class="block-cont">
-              <div id="clickDeal1" class="text flex-center">
-                <div class="text-icon"></div>
-                <div class="text-value">更改收件人信息</div>
-              </div>
-              <div id="clickDeal2" class="text flex-center">
-                <div class="text-icon"></div>
-                <div class="text-value">放入自提柜/代收点</div>
-              </div>
-              <div id="clickDeal3" class="text flex-center">
-                <div class="text-icon"></div>
-                <div class="text-value">更改派送时间</div>
-              </div>
-            </div>
-          </div>
-          <div id="hasBlockCont">
-            <div class="block-title">处理方式</div>
-            <div style="margin-bottom: 40px;">
-              <div id="hasBlockContTitle" class="has-block-cont-title"></div>
-              <div id="hasBlockContInfo" class="has-block-cont-info"></div>
-            </div>
-          </div>
-
-          <div id="deliveryInfo" class="block-right">
-            <div class="block-right-title">更改收件人信息</div>
-            <div class="line">
-              <div class="line-title">姓名：</div>
-              <input id="inputInfo" class="line-input" maxlength="14" value="" placeholder="请输入姓名" />
-              <div class="err-msg">名字不能为空</div>
-            </div>
-            <div class="line">
-              <div class="line-title">电话：</div>
-              <input id="inputTel" class="line-input" maxlength="15" type="text" value="" placeholder="请输入电话" />
-              <div class="err-msg">电话不能为空</div>
-            </div>
-          </div>
-          <div id="deliveryTime" class="block-right">
-            <div class="block-right-title">期望派送时间<div class="title-tip">如需预约其他时间派送请联系快递员</div>
-            </div>
-            <div id="deliveryTimeList"></div>
-          </div>
-        </div>
-      </div>
-      <div id="modalFooter" class="modal-footer">
-        <div class="btn">提交</div>
-        <div id="btnCancelModal" class="btn btn-cancel">取消</div>
-      </div>
     </div>
-
-    <div id="deliveryConfirm" class="delivery-confirm">
-      <div class="confirm-content">“已与客户预约派件”情况不真实，我要反馈</div>
-      <div class="confirm-footer">
-        <div id="btnConfirm" class="btn btn-submit">确认</div>
-        <div id="btnCancelConfirm" class="btn btn-cancel">取消</div>
-      </div>
-    </div>
-
-    <div id="deliveryDialog" class="delivery-dialog">
-      <img class="dialog-icon" src="static/picture/icon-success.png" />
-      <div class="dialog-content">
-        <div class="">
-          <div class="dialog-title">提交成功</div>
-          <div class="dialog-cont">尊敬的用户，我们会抓紧处理您的反馈，给您带来的不便，敬请谅解！</div>
-        </div>
-        <div class="dialog-footer">
-          <div id="btnView" class="btn btn-submit">查看详情</div>
-          <div id="btnClose" class="btn btn-cancel">关闭</div>
-        </div>
-      </div>
-    </div>
-
-    <div id="deliveryTip" class="delivery-tip">
-      <img src="static/picture/icon-warn.png" />
-      <div class="tip-text">运单已签收，无需回复</div>
-    </div>
-  </div>
-
-
-  <!-- end 陈海霞 2020-5-18 -->
-
-  <div id="embed-captcha"></div>
-  <div id="js-footer-wrap">
+</div>
+<div id="js-footer-wrap">
   <div id="about" class="js-footer">
     <div class="about-main">
       <div class="about">
@@ -713,7 +556,7 @@
             <li id="btn_foorterWechat">
               <a><span class="wechat"></span></a>
               <div class="img-box wechat-box">
-                <img src="static/picture/wechat.png" class="wechat-img detail-img" />
+                <img src="js_01/wechat.png" class="wechat-img detail-img" />
               </div>
             </li>
             <li id="btn_foorterWeibo">
@@ -722,19 +565,19 @@
             <li id="btn_foorterQQ">
               <a><span class="qq"></span></a>
               <div class="img-box qq-box">
-                <img src="static/picture/qq.png" class="qq-img detail-img" />
+                <img src="js_01/qq.png" class="qq-img detail-img" />
               </div>
             </li>
             <li id="btn_foorterAlipay">
               <a><span class="alipay"></span></a>
               <div class="img-box alipay-box">
-                <img src="static/picture/alipay-1.png" class="alipay-img detail-img" />
+                <img src="js_01/alipay-1.png" class="alipay-img detail-img" />
               </div>
             </li>
             <li id="btn_footerMinPhone">
               <a><span class="min-phone"></span></a>
               <div class="img-box app-box">
-                <img src="static/picture/app.png" class="app-img detail-img" />
+                <img src="js_01/app.png" class="app-img detail-img" />
 
               </div>
             </li>
@@ -743,11 +586,11 @@
             </li>
           </ul>
           <div class="tel-box">
-            <img src="static/picture/tel1.png" alt="全国统一客服热线" class="tel" />
-            <img src="static/picture/phone1.png" alt="全国统一客服热线" class="phone1" />
+            <img src="js_01/tel1.png" alt="全国统一客服热线" class="tel" />
+            <img src="js_01/phone1.png" alt="全国统一客服热线" class="phone1" />
             <span></span>
-            <img src="static/picture/tel2.png" alt="全国统一客服热线" class="tel" />
-            <img src="static/picture/phone2.png" alt="全国统一客服热线" class="phone2" />
+            <img src="js_01/tel2.png" alt="全国统一客服热线" class="tel" />
+            <img src="js_01/phone2.png" alt="全国统一客服热线" class="phone2" />
           </div>
         </div>
       </div>
@@ -783,18 +626,119 @@
           <div class="sincerity bg-img-cursor"></div>
           <div class="net bg-img-cursor"></div>
 
-          <img class="bg-img-cursor" src="static/picture/aqkx_83x30.png" />
+          <img class="bg-img-cursor" src="https://static.anquan.org/static/outer/image/aqkx_83x30.png" />
         </div>
       </div>
     </div>
   </div>
 </div>
 
-  <script src="static/js/bundle.js"></script>
-  <script src="static/js/jquery.validate.min.js"></script>
-  <script src="static/js/public.js"></script>
-  <script src="static/js/expresscheck.js"></script>
-  <script src="static/js/jsbarcode.js"></script>
 </body>
+<script>
+    $("#jijian").click(function () {
+        var address_01 = $("#form_21").val()+"-"+$("#form_22").val()+"-"+$("#form_23").val()
+        var address_02 = $("#form_31").val()+"-"+$("#form_32").val()+"-"+$("#form_33").val()
+        var test1=$("#test1").val()
+        var  protime =$("#product-time").val()
+        var weight =$("#weight").val()
+        var resultprice =$("#resultPrice").text();
+        alert("初始地："+address_01+"--目的地："+address_02+"--寄件时间:"+test1+"--预计到达时间："+protime+"--重量："+weight+"--金额："+resultprice);
+    })
+    $(".price-btn").click(function () {
+        var address_01 = $("#form_21").val()+"-"+$("#form_22").val()+"-"+$("#form_23").val()
+        var address_02 = $("#form_31").val()+"-"+$("#form_32").val()+"-"+$("#form_33").val()
+        var a = new Array();
+        var b = new Array();
+        var time01 = new Array();
+        var time02 = new Array();
+        var time1 = "01,03,05,07,08,10,12,"
+        time01 = time1.split(",");
+        var time2 = "04,06,09,11"
+        time02 = time2.split(",");
+        a =$("#test1").val().split(" ");
+        b =a[0].split("-");
+        var c = 0;
+        $("#resultWeight").text($("#weight").val());
+        var price =0;
+        if($("#form_21").val() == $("#form_31").val()){
+            price= $("#weight").val()*6+10
+            $("#product-time").text(a[0])
+        }else{
+            /*var timeabc = new Array();
+            timeabc =b[1].split("");*/
+            var abc = parseInt(b[1]);
+            var abce = parseInt(b[2]);
+            price= $("#weight").val()*10+4
+            for(var i = 0 ; i<time01.length; i++){
+                if(b[1] == time01[i] && b[2] == 31){
+                    $("#product-time").text(b[0]+"-"+(abc+1)+"-"+"1")
+                    c = 1;
+                }
+            }
+            for(var j = 0 ; j<time02.length; j++){
+                if(b[j] == time02[j] && b[2] == 30){
+                    $("#product-time").text(b[0]+"-"+(abc+1)+"-"+"1")
+                    c=2 ;
+                }
+            }
+            if(b[1] == "02" && b[2] == 28){
+                $("#product-time").text(b[0]+"-"+(abc+1)+"-"+"1")
+                c =3 ;
+            }
+            if(c == 0){
+                $("#product-time").text(b[0]+"-"+b[1]+"-"+(abce+1))
+            }
+        }
+        $("#resultPrice").text(price);
+        $("#123").show();
+        $(".price-result").show();
+    })
+</script>
+<script type="text/javascript">
+    //配置插件目录
+    layui.config({
+        base: './mods/'
+        , version: '1.0'
+    });
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form', 'laydate','layarea'], function () {
+        var layer = layui.layer
+            , form = layui.form
+            , layarea = layui.layarea;
+        var laydate = layui.laydate;
 
+        layarea.render({
+            elem: '#area-picker',
+            change: function (res) {
+                //选择结果
+                console.log(res);
+            }
+        });
+        layarea.render({
+            elem: '#area-picker_01',
+            change: function (res) {
+                //选择结果
+                console.log(res);
+            }
+        });
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+            ,type: 'datetime'
+        });
+
+    });
+</script>
 </html>
+<script src="123js/bundle.js"></script>
+<script src="https://libs.zto.cn/lib/jquery-validate/1.14.0/jquery.validate.min.js?v=a7b0833ed3"></script>
+<script src="layui/lay/modules/laydate.js"></script>
+<script src="123js/public.js"></script>
+<!-- <script src="./../js/prov.js?v=4df278eb6a"></script> -->
+<!-- <script src="https://libs.zto.cn/dynamicdata/allregion.js"></script> -->
+<!-- <script src="https://libs.zto.cn/dynamicdata/allRegion-gat.js"></script> -->
+<script src="123js/citySetComplain.js"></script>
+<!-- <script src="https://libs.zto.cn/dynamicdata/allcountry.js"></script> -->
+<!-- <script src="./../js/citySetPrice.js?v=bbf650f2ca"></script> -->
+<script src="123js/expressPrice.js"></script>
+<script src="static/js/jquery.js"></script>

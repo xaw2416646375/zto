@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.JfgOrderAddressMapper">
+
+    <resultMap type="com.yidu.zto.entity.OrderAddress" id="OrderAddressMap">
+        <result property="orderAddressId" column="order_address_id" jdbcType="INTEGER"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="district" column="district" jdbcType="VARCHAR"/>
+        <result property="detailAddress" column="detail_address" jdbcType="VARCHAR"/>
+        <result property="sendReceiveMan" column="send_receive_man" jdbcType="VARCHAR"/>
+        <result property="addressType" column="address_type" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderAddressMap">
+        select
+          order_address_id, province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id
+        from zto.order_address
+        where order_address_id = #{orderAddressId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderAddressMap">
+        select
+          order_address_id, province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id
+        from zto.order_address
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderAddressMap">
+        select
+        order_address_id, province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id
+        from zto.order_address
+        <where>
+            <if test="orderAddressId != null">
+                and order_address_id = #{orderAddressId}
+            </if>
+            <if test="province != null and province != ''">
+                and province = #{province}
+            </if>
+            <if test="city != null and city != ''">
+                and city = #{city}
+            </if>
+            <if test="district != null and district != ''">
+                and district = #{district}
+            </if>
+            <if test="detailAddress != null and detailAddress != ''">
+                and detail_address = #{detailAddress}
+            </if>
+            <if test="sendReceiveMan != null and sendReceiveMan != ''">
+                and send_receive_man = #{sendReceiveMan}
+            </if>
+            <if test="addressType != null">
+                and address_type = #{addressType}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="createdate != null">
+                and createDate = #{createdate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="orderAddressId" useGeneratedKeys="true">
+        insert into zto.order_address(province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id)
+        values (#{province}, #{city}, #{district}, #{detailAddress}, #{sendReceiveMan}, #{addressType}, #{phone}, now(),#{customerId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="orderAddressId" useGeneratedKeys="true">
+        insert into zto.order_address(province, city, district, detail_address, send_receive_man, address_type, phone,
+        createDate,customer_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.province}, #{entity.city}, #{entity.district}, #{entity.detailAddress}, #{entity.sendReceiveMan},
+            #{entity.addressType}, #{entity.phone}, now(),#{entity.customerId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="orderAddressId" useGeneratedKeys="true">
+        insert into zto.order_address(province, city, district, detail_address, send_receive_man, address_type, phone,
+        createDate,customer_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.province}, #{entity.city}, #{entity.district}, #{entity.detailAddress}, #{entity.sendReceiveMan},
+            #{entity.addressType}, #{entity.phone}, #{entity.createdate},#{entity.customerId})
+        </foreach>
+        on duplicate key update
+        province = values(province) , city = values(city) , district = values(district) , detail_address =
+        values(detail_address) , send_receive_man = values(send_receive_man) , address_type = values(address_type) ,
+        phone = values(phone) , createDate = values(createDate),customer_id = values(customer_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.order_address
+        <set>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="district != null and district != ''">
+                district = #{district},
+            </if>
+            <if test="detailAddress != null and detailAddress != ''">
+                detail_address = #{detailAddress},
+            </if>
+            <if test="sendReceiveMan != null and sendReceiveMan != ''">
+                send_receive_man = #{sendReceiveMan},
+            </if>
+            <if test="addressType != null">
+                address_type = #{addressType},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate},
+            </if>
+        </set>
+        where order_address_id = #{orderAddressId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zto.order_address where order_address_id = #{orderAddressId}
+    </delete>
+    <!--查询单个-->
+    <select id="queryByEx" resultMap="OrderAddressMap">
+        select
+          order_address_id, province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id
+        from zto.order_address
+        where province = #{province} and city = #{city} and detail_address = #{detailAddress}
+        and district = #{district} and send_receive_man = #{sendReceiveMan} and phone = #{phone}
+    </select>
+
+    <select id="queryAllById" resultMap="OrderAddressMap">
+        select
+          order_address_id, province, city, district, detail_address, send_receive_man, address_type, phone, createDate,customer_id
+        from zto.order_address
+        where customer_id=#{customerId}
+        ORDER BY order_address_id DESC
+        limit 0,#{size}
+    </select>
+</mapper>
+

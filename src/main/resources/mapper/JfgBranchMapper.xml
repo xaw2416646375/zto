@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.JfgBranchMapper">
+
+    <resultMap type="com.yidu.zto.entity.Branch" id="BranchMap">
+        <result property="branchId" column="branch_id" jdbcType="INTEGER"/>
+        <result property="branchAddress" column="branch_address" jdbcType="VARCHAR"/>
+        <result property="branchType" column="branch_type" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="branchPhone" column="branch_phone" jdbcType="VARCHAR"/>
+        <result property="branchNumber" column="branch_number" jdbcType="VARCHAR"/>
+        <result property="parentNumber" column="parent_number" jdbcType="VARCHAR"/>
+        <result property="coordinate" column="coordinate" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BranchMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        where branch_id = #{branchId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BranchMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BranchMap">
+        select
+        branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        <where>
+            <if test="branchId != null">
+                and branch_id = #{branchId}
+            </if>
+            <if test="branchAddress != null and branchAddress != ''">
+                and branch_address = #{branchAddress}
+            </if>
+            <if test="branchType != null">
+                and branch_type = #{branchType}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="branchPhone != null and branchPhone != ''">
+                and branch_phone = #{branchPhone}
+            </if>
+            <if test="branchNumber != null and branchNumber != ''">
+                and branch_number = #{branchNumber}
+            </if>
+            <if test="parentNumber != null and parentNumber != ''">
+                and parent_number = #{parentNumber}
+            </if>
+            <if test="coordinate != null and coordinate != ''">
+                and coordinate = #{coordinate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="branchId" useGeneratedKeys="true">
+        insert into zto.branch(branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate)
+        values (#{branchAddress}, #{branchType}, #{userId}, #{branchPhone}, #{branchNumber}, #{parentNumber}, #{coordinate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="branchId" useGeneratedKeys="true">
+        insert into zto.branch(branch_address, branch_type, user_id, branch_phone, branch_number, parent_number,
+        coordinate)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.branchAddress}, #{entity.branchType}, #{entity.userId}, #{entity.branchPhone},
+            #{entity.branchNumber}, #{entity.parentNumber}, #{entity.coordinate})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="branchId" useGeneratedKeys="true">
+        insert into zto.branch(branch_address, branch_type, user_id, branch_phone, branch_number, parent_number,
+        coordinate)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.branchAddress}, #{entity.branchType}, #{entity.userId}, #{entity.branchPhone},
+            #{entity.branchNumber}, #{entity.parentNumber}, #{entity.coordinate})
+        </foreach>
+        on duplicate key update
+        branch_address = values(branch_address) , branch_type = values(branch_type) , user_id = values(user_id) ,
+        branch_phone = values(branch_phone) , branch_number = values(branch_number) , parent_number =
+        values(parent_number) , coordinate = values(coordinate)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.branch
+        <set>
+            <if test="branchAddress != null and branchAddress != ''">
+                branch_address = #{branchAddress},
+            </if>
+            <if test="branchType != null">
+                branch_type = #{branchType},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="branchPhone != null and branchPhone != ''">
+                branch_phone = #{branchPhone},
+            </if>
+            <if test="branchNumber != null and branchNumber != ''">
+                branch_number = #{branchNumber},
+            </if>
+            <if test="parentNumber != null and parentNumber != ''">
+                parent_number = #{parentNumber},
+            </if>
+            <if test="coordinate != null and coordinate != ''">
+                coordinate = #{coordinate},
+            </if>
+        </set>
+        where branch_id = #{branchId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zto.branch where branch_id = #{branchId}
+    </delete>
+
+
+    <select id="queryCity" resultMap="BranchMap">
+        SELECT *  FROM branch WHERE branch_number IN(SELECT parent_number FROM branch WHERE branch_address=#{district})
+    </select>
+
+    <select id="queryCityId" resultMap="BranchMap">
+
+        SELECT * FROM branch WHERE (SELECT branch_number FROM branch WHERE branch_address=#{city})=(SELECT parent_number FROM branch WHERE branch_address=#{district})
+AND branch_address=#{district}
+
+
+    </select>
+
+</mapper>
+

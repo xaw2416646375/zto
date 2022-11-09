@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.JfgAddressMapper">
+
+    <resultMap type="com.yidu.zto.entity.Address" id="AddressMap">
+        <result property="addressId" column="address_id" jdbcType="INTEGER"/>
+        <result property="sendReceiveMan" column="send_receive_man" jdbcType="VARCHAR"/>
+        <result property="detailAddress" column="detail_address" jdbcType="VARCHAR"/>
+        <result property="isDefault" column="is_default" jdbcType="INTEGER"/>
+        <result property="addressType" column="address_type" jdbcType="INTEGER"/>
+        <result property="isValid" column="is_valid" jdbcType="INTEGER"/>
+        <result property="customerId" column="customer_id" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="province" column="province" jdbcType="VARCHAR"/>
+        <result property="city" column="city" jdbcType="VARCHAR"/>
+        <result property="district" column="district" jdbcType="VARCHAR"/>
+        <result property="createdate" column="createDate" jdbcType="TIMESTAMP"/>
+        <result property="lastUseDate" column="last_use_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AddressMap">
+        select
+          address_id, send_receive_man, detail_address, is_default, address_type, is_valid, customer_id, phone, province, city, district, createDate, last_use_date
+        from zto.address
+        where address_id = #{addressId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AddressMap">
+        select
+          address_id, send_receive_man, detail_address, is_default, address_type, is_valid, customer_id, phone, province, city, district, createDate, last_use_date
+        from zto.address where customer_id = #{customerId}
+        ORDER BY is_default DESC
+    </select>
+
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllCount" resultType="Integer">
+        select
+        count(*)
+        from zto.address where  customer_id = #{customerId}
+    </select>
+
+
+
+
+
+
+
+
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="addressId" useGeneratedKeys="true">
+        insert into zto.address(send_receive_man, detail_address, is_default, address_type, is_valid, customer_id, phone, province, city, district, createDate, last_use_date)
+        values (#{sendReceiveMan}, #{detailAddress}, 0, #{addressType}, 1, #{customerId}, #{phone}, #{province}, #{city}, #{district}, now(), #{lastUseDate})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="addressId" useGeneratedKeys="true">
+        insert into zto.address(send_receive_man, detail_address, is_default, address_type, is_valid, customer_id,
+        phone, province, city, district, createDate, last_use_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sendReceiveMan}, #{entity.detailAddress}, 0, #{entity.addressType},
+            1, #{entity.customerId}, #{entity.phone}, #{entity.province}, #{entity.city},
+            #{entity.district}, now(), #{entity.lastUseDate})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="addressId" useGeneratedKeys="true">
+        insert into zto.address(send_receive_man, detail_address, is_default, address_type, is_valid, customer_id,
+        phone, province, city, district, createDate, last_use_date)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sendReceiveMan}, #{entity.detailAddress}, #{entity.isDefault}, #{entity.addressType},
+            #{entity.isValid}, #{entity.customerId}, #{entity.phone}, #{entity.province}, #{entity.city},
+            #{entity.district}, #{entity.createdate}, #{entity.lastUseDate})
+        </foreach>
+        on duplicate key update
+        send_receive_man = values(send_receive_man) , detail_address = values(detail_address) , is_default =
+        values(is_default) , address_type = values(address_type) , is_valid = values(is_valid) , customer_id =
+        values(customer_id) , phone = values(phone) , province = values(province) , city = values(city) , district =
+        values(district) , createDate = values(createDate) , last_use_date = values(last_use_date)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.address
+        <set>
+            <if test="sendReceiveMan != null and sendReceiveMan != ''">
+                send_receive_man = #{sendReceiveMan},
+            </if>
+            <if test="detailAddress != null and detailAddress != ''">
+                detail_address = #{detailAddress},
+            </if>
+            <if test="isDefault != null">
+                is_default = #{isDefault},
+            </if>
+            <if test="addressType != null">
+                address_type = #{addressType},
+            </if>
+            <if test="isValid != null">
+                is_valid = #{isValid},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="province != null and province != ''">
+                province = #{province},
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="district != null and district != ''">
+                district = #{district},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate},
+            </if>
+            <if test="lastUseDate != null">
+                last_use_date = #{lastUseDate},
+            </if>
+        </set>
+        where address_id = #{addressId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zto.address where address_id = #{addressId}
+    </delete>
+
+
+
+    <!--通过主键修改数据-->
+    <update id="updateDefault">
+        update zto.address set is_default = 1
+        where address_id = #{addressId} and customer_id = #{customerId}
+    </update>
+
+    <!--通过主键修改数据-->
+    <update id="updateDefaultTow">
+        update zto.address set is_default = 0 where customer_id = #{customerId}
+    </update>
+
+    <select id="queryByEx" resultMap="AddressMap">
+        select
+          address_id, send_receive_man, detail_address, is_default, address_type, is_valid, customer_id, phone, province, city, district, createDate, last_use_date
+        from zto.address
+        where send_receive_man = #{sendReceiveMan} and detail_address = #{detailAddress} and
+        customer_id = #{customerId} and phone = #{phone} and province = #{province} and
+        city = #{city} and district = #{district}
+    </select>
+</mapper>
+

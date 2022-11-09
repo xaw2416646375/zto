@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.BranchDao">
+
+    <resultMap id="BaseResultMap" type="com.yidu.zto.entity.Branch">
+        <!--@Table branch-->
+        <result property="branchId" column="branch_id" jdbcType="INTEGER"/>
+        <result property="branchAddress" column="branch_address" jdbcType="VARCHAR"/>
+        <result property="branchType" column="branch_type" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="branchPhone" column="branch_phone" jdbcType="VARCHAR"/>
+        <result property="branchNumber" column="branch_number" jdbcType="VARCHAR"/>
+        <result property="parentNumber" column="parent_number" jdbcType="VARCHAR"/>
+        <result property="coordinate" column="coordinate" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--查询所有-->
+    <select id="selectBranch" resultMap="BaseResultMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+    </select>
+    <select id="queryselect" resultType="com.yidu.zto.entity.BranchAndUserinfo">
+        select * from branch b1,userinfo u1 WHERE b1.user_id = u1.user_Id;
+    </select>
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        where branch_id = #{branchId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          branch_id, branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate
+        from zto.branch
+        <where>
+            <if test="branchId != null">
+                and branch_id = #{branchId}
+            </if>
+            <if test="branchAddress != null and branchAddress != ''">
+                and branch_address = #{branchAddress}
+            </if>
+            <if test="branchType != null">
+                and branch_type = #{branchType}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="branchPhone != null and branchPhone != ''">
+                and branch_phone = #{branchPhone}
+            </if>
+            <if test="branchNumber != null and branchNumber != ''">
+                and branch_number = #{branchNumber}
+            </if>
+            <if test="parentNumber != null and parentNumber != ''">
+                and parent_number = #{parentNumber}
+            </if>
+            <if test="coordinate != null and coordinate != ''">
+                and coordinate = #{coordinate}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="branchId" useGeneratedKeys="true">
+        insert into zto.branch(branch_address, branch_type, user_id, branch_phone, branch_number, parent_number, coordinate)
+        values (#{branchAddress}, #{branchType}, #{userId}, #{branchPhone}, #{branchNumber}, #{parentNumber}, #{coordinate})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update zto.branch
+        <set>
+            <if test="branchAddress != null and branchAddress != ''">
+                branch_address = #{branchAddress},
+            </if>
+            <if test="branchType != null">
+                branch_type = #{branchType},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="branchPhone != null and branchPhone != ''">
+                branch_phone = #{branchPhone},
+            </if>
+            <if test="branchNumber != null and branchNumber != ''">
+                branch_number = #{branchNumber},
+            </if>
+            <if test="parentNumber != null and parentNumber != ''">
+                parent_number = #{parentNumber},
+            </if>
+            <if test="coordinate != null and coordinate != ''">
+                coordinate = #{coordinate},
+            </if>
+        </set>
+        where branch_id = #{branchId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from zto.branch where branch_id = #{branchId}
+    </delete>
+
+</mapper>

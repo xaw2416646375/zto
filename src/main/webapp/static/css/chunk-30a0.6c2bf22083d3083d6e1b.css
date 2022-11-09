@@ -676,7 +676,7 @@
  margin:0 0 0 50px
 }
 .create-container .send_agreen .box h2 {
- background:url(/static/images/create/send_promise.png) no-repeat
+ background:url(../images/send_promise.png) no-repeat
 }
 .create-container .send_agreen .box .txt {
  height:400px;

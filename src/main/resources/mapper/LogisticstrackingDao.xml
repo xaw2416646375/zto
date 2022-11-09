@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yidu.zto.dao.LogisticstrackingMapper">
+
+    <resultMap type="com.yidu.zto.entity.Logisticstracking" id="LogisticstrackingMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parcelId" column="parcel_id" jdbcType="INTEGER"/>
+        <result property="currentlocation" column="currentLocation" jdbcType="VARCHAR"/>
+        <result property="nextstation" column="nextStation" jdbcType="VARCHAR"/>
+        <result property="username" column="userName" jdbcType="VARCHAR"/>
+        <result property="message" column="message" jdbcType="VARCHAR"/>
+        <result property="updateDate" column="update_Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByExpressNumber" resultMap="LogisticstrackingMap">
+        SELECT * FROM logisticsTracking WHERE parcel_Id IN(SELECT parcel_Id FROM parcel WHERE orderId=(SELECT orderId FROM `order` WHERE expressNumber=#{expressNumber})) ORDER BY update_Date desc
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryByExpressNumber" resultMap="LogisticstrackingMap">
+        SELECT * FROM logisticsTracking WHERE parcel_Id IN(SELECT parcel_Id FROM parcel WHERE orderId=(SELECT orderId FROM `order` WHERE expressNumber=#{expressNumber})) ORDER BY update_Date desc
+        limit 0,1
+    </select>
+</mapper>
+
